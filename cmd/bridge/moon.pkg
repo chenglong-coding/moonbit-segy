@@ -1,0 +1,16 @@
+import {
+  "localreview/segy" @lib,
+  "moonbitlang/core/json",
+  "moonbitlang/core/debug",
+  "moonbitlang/core/string",
+}
+
+supported_targets = "js"
+
+pkgtype(kind: "executable")
+
+options(
+  link: {
+    "js": { "exports": [ "report", "transform", "new_file" ], "format": "esm" },
+  },
+)

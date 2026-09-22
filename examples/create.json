@@ -1,0 +1,11 @@
+{
+  "sample_code": 5,
+  "revision": 1,
+  "interval_us": 2000,
+  "text": "C 1 MOONSEGY SYNTHETIC EXAMPLE - NO FIELD ACQUISITION",
+  "traces": [
+    {"samples": [0, 1, 2, 1, 0, -1, -2, -1, 0], "fields": {"ensemble": 10, "source_x": 12345, "source_y": 67890, "coordinate_scalar": -100, "coordinate_units": 1}},
+    {"samples": [0, 0.5, 1, 0.5, 0, -0.5, -1, -0.5, 0], "fields": {"ensemble": 10}},
+    {"samples": [0, 0, 0, 0, 0, 0, 0, 0, 0], "fields": {"ensemble": 20, "identification": 2}}
+  ]
+}
