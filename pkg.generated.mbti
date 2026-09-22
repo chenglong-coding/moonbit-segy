@@ -1,0 +1,51 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "localreview/segy"
+
+// Values
+pub fn decode_sample(Bytes, Int, Int, Endian) -> Sample raise
+
+pub fn decode_text(Bytes, String) -> String raise
+
+pub fn encode_samples(Array[Sample], Int, Endian) -> Bytes raise
+
+pub fn encode_text(String, String) -> Bytes raise
+
+pub fn make_header(Int, Double, Int, endian? : Endian, revision? : Int, fixed_length? : Bool, text? : String, text_encoding? : String, extended_count? : Int) -> FileHeader raise
+
+pub fn parse_header(Bytes, endian? : Endian, text_encoding? : String) -> FileHeader raise
+
+pub fn sample_width(Int) -> Int raise
+
+// Errors
+
+// Types and methods
+pub(all) enum Endian {
+  Big
+  Little
+} derive(Eq)
+pub fn Endian::equal(Self, Self) -> Bool
+pub fn Endian::not_equal(Self, Self) -> Bool
+
+pub struct FileHeader {
+  endian : Endian
+  revision : Int
+  sample_code : Int
+  samples : Int
+  interval_us : Double
+  fixed_length : Bool
+  extended_count : Int
+  declared_traces : UInt64
+  first_trace : Int
+  text_encoding : String
+  raw : Bytes
+}
+
+pub(all) enum Sample {
+  Signed(Int64)
+  Real(Double)
+}
+pub fn Sample::as_double(Self) -> Double raise
+
+// Type aliases
+
+// Traits
