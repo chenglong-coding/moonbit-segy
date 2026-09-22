@@ -29,11 +29,18 @@ pub struct Dataset {
   header : FileHeader
   // private fields
 }
+pub fn Dataset::convert_samples(Self, Int) -> Self raise
+pub fn Dataset::csv(Self, Array[Int]) -> String raise
 pub fn Dataset::encode(Self) -> Bytes
 pub fn Dataset::extended_headers(Self) -> Array[Bytes]
+pub fn Dataset::find_traces(Self, String, Int, Int) -> Array[Int] raise
+pub fn Dataset::groups(Self, String) -> Array[TraceGroup] raise
+pub fn Dataset::nonfinite_samples(Self) -> Int raise
+pub fn Dataset::select(Self, Array[Int]) -> Self raise
 pub fn Dataset::trace(Self, Int) -> Trace raise
 pub fn Dataset::trace_count(Self) -> Int
 pub fn Dataset::trace_index(Self) -> Array[TraceIndex]
+pub fn Dataset::window(Self, Int, Int) -> Self raise
 
 pub(all) enum Endian {
   Big
@@ -65,12 +72,24 @@ pub fn Sample::as_double(Self) -> Double raise
 pub struct Trace {
   // private fields
 }
+pub fn Trace::amplitude(Self, Int, weighted? : Bool) -> Double raise
+pub fn Trace::coordinate_degrees(Self, String) -> Double raise
 pub fn Trace::field(Self, String) -> Int raise
 pub fn Trace::interval_us(Self) -> Double
 pub fn Trace::raw_header(Self) -> Bytes
 pub fn Trace::raw_samples(Self) -> Bytes
 pub fn Trace::sample(Self, Int) -> Sample raise
 pub fn Trace::samples(Self) -> Int
+pub fn Trace::scaled_field(Self, String) -> Double raise
+pub fn Trace::statistics(Self, dead_threshold? : Double, clip_threshold? : Double, weighted? : Bool) -> TraceStatistics raise
+pub fn Trace::svg(Self) -> String raise
+pub fn Trace::time_seconds(Self, Int) -> Double raise
+
+pub(all) struct TraceGroup {
+  value : Int
+  indices : Array[Int]
+} derive(ToJson)
+pub fn TraceGroup::to_json(Self) -> Json
 
 pub(all) struct TraceIndex {
   header_offset : Int
@@ -79,6 +98,19 @@ pub(all) struct TraceIndex {
   interval_us : Double
 } derive(ToJson)
 pub fn TraceIndex::to_json(Self) -> Json
+
+pub(all) struct TraceStatistics {
+  samples : Int
+  minimum : Double
+  maximum : Double
+  mean : Double
+  rms : Double
+  standard_deviation : Double
+  dead : Bool
+  clipped_samples : Int
+  clipping_checked : Bool
+} derive(ToJson)
+pub fn TraceStatistics::to_json(Self) -> Json
 
 // Type aliases
 

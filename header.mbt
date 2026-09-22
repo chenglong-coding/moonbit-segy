@@ -194,6 +194,17 @@ pub fn make_header(
   }
   let out = Array::make(3600, b'\x00')
   copy_into(out, 0, encode_text(text, text_encoding))
+  if revision == 2 && !text.contains("SEG-Y_REV2.0") {
+    if text.length() > 3040 {
+      raise Failure("long rev2 text must include SEG-Y_REV2.0")
+    }
+    // Canonical writers identify their revision in textual row 39, leaving
+    // supplied earlier rows untouched (SEG section 4).
+    let marker = encode_text("C39 SEG-Y_REV2.0", text_encoding)
+    for i in 0..<80 {
+      out[3040 + i] = marker[i]
+    }
+  }
   put_uint(
     out,
     3216,
@@ -221,6 +232,10 @@ pub fn make_header(
   put_uint(out, 3502, 2, if fixed_length { 1UL } else { 0UL }, endian)
   put_uint(out, 3504, 2, extended_count.to_uint64(), endian)
   if revision == 2 {
+    // Rev2 defines major/minor as separate octets, not an endian integer.
+    // Readers also accept historical little-endian uint16 writer convention.
+    out[3500] = b'\x02'
+    out[3501] = b'\x00'
     put_uint(out, 3268, 4, samples.to_uint64(), endian)
     put_uint(out, 3272, 8, interval_us.reinterpret_as_uint64(), endian)
     put_uint(out, 3296, 4, 0x01020304UL, endian)
