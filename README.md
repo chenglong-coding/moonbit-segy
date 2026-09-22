@@ -11,6 +11,7 @@ MoonBit 原生 SEG-Y 文件交换、道筛选和原始振幅质量检查库。�
 - 标准240字节道头，定长/变长扫描索引、原字节复制、未知普通头字节保留；受限 rev2 固定道支持扩展计数/采样间隔。
 - 坐标/高程/时间标量，明确角度单位下的 DMS 解码；道选择、头值筛选、道集分组、样本窗口和样本码转换。
 - 原始或显式权重振幅统计、RMS、总体标准差、死道/用户阈值裁剪检查；CSV、脚本无关 SVG 波形。
+- 全道集/指定原始道号的QC：按头字段分组，原始字节位置、非有限/整数范围/权重问题定位，完整汇总与限额问题明细；JSON/CSV。
 
 ## 快速运行
 
@@ -29,9 +30,12 @@ node tools/segy.mjs select demo.sgy examples/select.json selected.sgy
 node tools/segy.mjs window demo.sgy examples/window.json window.sgy
 node tools/segy.mjs csv demo.sgy examples/select.json samples.csv
 node tools/segy.mjs svg demo.sgy examples/trace.json trace.svg
+node tools/segy.mjs qc demo.sgy examples/quality.json
+moon run examples/quality_check --target js
 ```
 
 示例生成三道合成数据，包含两个同道集波形和一条零幅度道。输出必须是新路径，不覆盖既有文件；错误写 stderr、退出码2。SVG 必须显式选道，超过20000样本请先窗口，不用未经说明的降采样隐藏细节。
+`qc` 示例故意包含零幅度道和阈值问题，正常输出报告后退出3；这不是命令崩溃。`qc`/`qc-csv` 无发现退出0，参数/结构/IO错误退出2。纯MoonBit示例正常退出并打印发现结果，可用JS/Wasm-GC运行。
 单样本道使用可见圆点表示（包括零值），不虚构时间跨度；多样本道保持逐点折线。
 
 普通命令形式为 `COMMAND INPUT [OPTIONS.json] [OUTPUT]`，选项是 **JSON 文件**；`create OPTIONS.json OUTPUT` 例外。读取报告默认打印 JSON，CSV/SVG 打印文本；二进制操作必须给 OUTPUT。
@@ -46,6 +50,7 @@ node tools/segy.mjs svg demo.sgy examples/trace.json trace.svg
 | copy / select / filter | 精确复制 / `traces` / `field`、`minimum`、`maximum` |
 | window / convert | `first`、`count` / `sample_code` |
 | csv / svg | `traces` 数组 / `trace` |
+| qc / qc-csv | 可选 `traces`、`group_by`、`dead_threshold`、`clip_threshold`、`weighted`、`max_details`、`max_groups`；见 [QC指南](docs/QUALITY.md) |
 
 可用原始字段名：sequence_line、sequence_file、field_record、trace_in_record、source_point、ensemble、trace_in_ensemble、identification、offset、receiver_elevation、source_elevation、source_depth、elevation_scalar、coordinate_scalar、source_x/y、group_x/y、coordinate_units、delay_ms、weighting；rev1/2另有 cdp_x/y、inline、crossline、shotpoint、shotpoint_scalar、time_scalar。未列字段仍保留原字节，但不解释其语义。
 
@@ -68,11 +73,13 @@ let output = windowed.encode()
 
 原始振幅不是物理标定值。`weighted:true` 仅应用 `2^(-weighting)`，不自动应用传感器换能系数。标量坐标保持声明的米/英尺/角单位；不从数值猜 CRS。clipped_samples 只表示超过用户阈值，dead 只表示幅度阈值意义上的平坦零道，不等价于设备损坏诊断。
 
+`Dataset::quality_check` 能报告并继续扫描不可分析样本。任何样本不可可靠分析时，该整道统计为显式null，不进入分组/全局振幅汇总，完整原因与样本计数保留；不偷偷算有效子集均值。合并统计按样本数量加权，不按每道平均值或时间长度加权。完整64位原值与文件保持不变。CLI道号/头字段/预算必须为精确整数，不接受小数截断。
+
 ## 精度与明确限制
 
 - `Sample::Signed(Int64)` 保存完整64位整数；转 Double 分析保守拒绝绝对值超过2^53。CLI 的整数样本使用十进制字符串输出；新建JSON大整数也必须使用字符串。
 - IBM32 写入规范化、最近舍入（中点远离零）；浮点下溢至零/溢出报错，IEEE64 原字节复制不损精度。Float→Integer 只接受精确整数，不隐式截断。
-- 非有限 IEEE 样本可结构读取和原字节复制，`validate`、统计、CSV、SVG 拒绝；不能因 inspect 成功声称数值有效。
+- 非有限 IEEE 样本可结构读取和原字节复制，`validate`、逐道统计、样本CSV、SVG拒绝；QC会报告并继续扫描，不修改原样本。不能因 inspect 成功声称数值有效。
 - 文件最大256 MiB，1000000道，单道1000000样本，合计16000000样本，1024扩展文本块，CSV1000000行；这些是数据限额，不承诺恒定内存。
 - 不支持额外240字节道头、头布局重映射、二进制用户 stanza、pair-swapped、tape label、data trailer、rev2.1、无符号/过时定点样本码。未知布局明确拒绝，普通未解释头字节可保留。
 - 不提供任意原始头的跨端序/跨版本重写，因为未知字段无法安全重排。可新建两种端序，现有文件的选择、窗口和样本格式转换保持原端序/版本。
@@ -86,9 +93,10 @@ moon info
 node tools/check-cli.mjs
 python -m pip install -r tools/requirements.txt
 python tools/verify-reference.py
+python tools/verify-quality.py
 ```
 
-13组测试各在 JS/Wasm-GC 通过，CLI16项；独立332场景/1171项记录在 [reference.json](evidence/reference.json)。segyio 1.9.14不支持24位码7，且不能替代变长道/rev2完整验证：这些用独立 struct/CP037参考，绝不标成 segyio 通过。CI 已配置三系统，远程未执行。
+增强前基线为13组测试、CLI16项、独立332场景/1171项，保留在 [reference.json](evidence/reference.json)。当前QC增强的源码绑定与复查结果见 [quality-20260922.json](evidence/quality-20260922.json) 和 [TESTING](docs/TESTING.md)，不以旧散列证明新代码。segyio 1.9.14不支持24位码7，且不能替代变长道/rev2完整验证：这些用独立 struct/CP037参考，绝不标成 segyio 通过。CI 已配置三系统，远程未执行。
 SVG 的六类合成样本已在本机真实 Chromium 浏览器中检查，发现并修复单样本不可见问题；见 [图形输出核查](docs/SVG-REVIEW.md)。
 
 依据：[SEG-Y rev2.0 原始规范](https://seg.org/wp-content/uploads/2025/11/seg_y_rev2_0_mar2017.pdf)、[segyio](https://segyio.readthedocs.io/)。CP037 数据表与 Python 独立编码器全256字节互核，非 Python 包装实现。复用本批自有二进制读取设计，未复制第三方库核心。

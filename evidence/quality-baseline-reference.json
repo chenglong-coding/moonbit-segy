@@ -1,0 +1,57 @@
+{
+  "status": "passed",
+  "cases": 332,
+  "checks": 1171,
+  "seed": 20260922,
+  "elapsed_seconds": 1.6740260000005946,
+  "versions": {
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "segyio": "1.9.14",
+    "node": "v24.11.0",
+    "platform": "Windows-11-10.0.26200-SP0"
+  },
+  "benchmark": {
+    "traces": 64,
+    "samples_per_trace": 1000,
+    "bytes": 274960,
+    "operation": "scan + finite validation + JSON IPC",
+    "seconds": 0.01571420000072976
+  },
+  "source_sha256": {
+    "analysis.mbt": "97267c7664e8ac4fb3f932bccef9517c5fbd1f7aab62f0b820782c65d8214736",
+    "binary.mbt": "c06a99ff2a56cd768f2d4c9c8f48b2f1b1b51ec6ea2fd48a94978f820c66098a",
+    "cmd/bridge/main.mbt": "211288dd24d35b3e7647f75897d28791c50fca40615c6c2e17303af974ded093",
+    "cmd/bridge/moon.pkg": "34c3a8f11e1405514c8c5e5fe2d5968dc191890eb77a32a81c43ddfaf73fa13e",
+    "codec_test.mbt": "6d6f768abcf12f32fd47267f5d78599c9ea489fdc62b9adbef650f379ddf4493",
+    "coordinates.mbt": "678f6aadd15b78f5f294b608152c938d9243245f61d788fbbc914e5f528194e1",
+    "dataset.mbt": "1ff285372694f80467ddfc55f5a9d75276e3f6a9b9f1e149e303736e613ea15b",
+    "dataset_test.mbt": "50c336eb052a50dd2e388434c0683e444671368e76ee6b49335891c6611d02ff",
+    "examples/quality_check/main.mbt": "af2255017084ebad1dc9d6cdc23e6e6c98bfceb0b58fcade53230f8d8a413080",
+    "examples/quality_check/moon.pkg": "7268348a927e9f8c6293a32769d8228f4b60dce293847cdda66ca70834bab2eb",
+    "examples/quality_check/pkg.generated.mbti": "4f3e387b7560d5a9885846b1119dea0e0036f2bb192d59c06931ce2bf7ae65a2",
+    "header.mbt": "1be02ee08058a9cc8e5ea7443aae05d22d5895f24e9aaa8ee550114caf5b4d89",
+    "moon.mod": "e58790a60aa41bf0c29a3dcada080e588950c2f7b815fcf13c559e4625fd0bee",
+    "moon.pkg": "15f0ce29ac604fb0a533967bded38e5af1a4c5d7e0233f1522ebb16da029e8a4",
+    "operations_test.mbt": "dd6223961627d95a82f0fcafd2bd2872ff04822b1510dfeae246a67e972bc4b5",
+    "pkg.generated.mbti": "a8f5bdb7004e4ce16d67b542d325c572dabfde2dcd65e90066e74a36347b4f9d",
+    "quality.mbt": "faf910bc904f3b0fccf03388dfc88348706a74ae1a5ef0d2baeeac8473e3977f",
+    "quality_moments.mbt": "71a86dcc1e170df8577b8667ab845e9c78947290b32acabe3e6d1c9f9542a8c9",
+    "quality_test.mbt": "8eee0664d95d45b1d29dc0d46b0c9c9455493f049339364e5f715bdb7784b0c8",
+    "sample.mbt": "d7aa4b1c1eceb88ffaea55936f05d3f0b7b1034ff6076fe189bd3277c16236c3",
+    "text.mbt": "797811fa0462cb019772f86d1bfe4503c6e446d33dd355fbc40bb3ac863c2ff4",
+    "tools/check-cli.mjs": "38ab2a2cbd34ac9d1d9d9ae2782247484059323059b32e30ddae5f7834688afe",
+    "tools/oracle-host.mjs": "330fcc9e1dc1b9effe09403c0c54e36a4a213d6e2bfac621dad7832dae5e70bc",
+    "tools/segy.mjs": "91ff5640a69b562e64ca634e2135ca58e4fd46268406135d7f2b31b30870f388",
+    "tools/verify-quality.py": "326423afb4ca283917b7a87b811d731abbec9ce24adc264dccb8c44e8ee142d3",
+    "tools/verify-reference.py": "f9591e621327a16ec91de62baeac9debd1744a46c16545d1ccf185d3e69cecfe",
+    "trace.mbt": "b382504dcbed30af919e3b83a39adf1aaa84973294dc28ce1746023bfe2df38d",
+    "transform.mbt": "62a085abf0790031bdddf4b16ce0acd8213a922a740571cb6a1a5318e442509b"
+  },
+  "limits": [
+    "segyio fixed trace interoperability only; code 7, variable/rev2 verified by independent struct",
+    "CP037 only, not every EBCDIC variant",
+    "no unknown trace-header remapping/extensions",
+    "raw amplitude statistics, not physical acquisition calibration"
+  ]
+}

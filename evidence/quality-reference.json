@@ -1,0 +1,25 @@
+{
+  "status": "passed",
+  "python": "3.12.14",
+  "numpy": "2.5.3",
+  "segyio": "1.9.14",
+  "matrix_cases": 146,
+  "checks": 165,
+  "cli_checks": 15,
+  "seconds": 3.3252432999997836,
+  "measurements": [
+    {
+      "traces": 100,
+      "samples_per_trace": 256,
+      "details": 8,
+      "roundtrip_seconds": 0.012516400000095018
+    },
+    {
+      "traces": 1000,
+      "samples_per_trace": 256,
+      "details": 8,
+      "roundtrip_seconds": 0.08320740000090154
+    }
+  ],
+  "scope": "Synthetic raw/weighting-scaled amplitude QC; no physical calibration or geophysical interpretation."
+}

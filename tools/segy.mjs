@@ -3,9 +3,10 @@ import fs from 'node:fs';
 import {report,transform,new_file} from '../_build/js/release/build/cmd/bridge/bridge.js';
 const usage=`Usage: node tools/segy.mjs COMMAND INPUT [OPTIONS.json] [OUTPUT]
        node tools/segy.mjs create OPTIONS.json OUTPUT
-Reports: inspect validate trace stats groups find coordinate csv svg
+Reports: inspect validate trace stats groups find coordinate csv svg qc qc-csv
 Writes: copy select filter window convert (OUTPUT required)
 Reports print JSON or exported text unless OUTPUT is supplied.
+QC exits: 0 clear for enabled checks, 3 findings (report still written), 2 input/IO error.
 OPTIONS is a JSON file, not inline JSON. Existing outputs are never overwritten.`;
 function read(file,limit) {
   const fd=fs.openSync(file,'r');
@@ -16,6 +17,7 @@ function read(file,limit) {
     let size=0,got;
     while(size<buffer.length && (got=fs.readSync(fd,buffer,size,buffer.length-size,null))) size+=got;
     if(size>stat.size) throw new Error('file grew during read; retry a stable file');
+    if(size<stat.size) throw new Error('file shrank during read; retry a stable file');
     return buffer.subarray(0,size);
   } finally {fs.closeSync(fd);}
 }
@@ -41,8 +43,10 @@ try {
       save(output,Buffer.from(transform(data,JSON.stringify(o))));
     } else {
       const result=JSON.parse(report(data,JSON.stringify(o)));
-      const text=['csv','svg'].includes(command)?result.text:JSON.stringify(result,null,2)+'\n';
+      const text=['csv','svg','qc-csv'].includes(command)?result.text:JSON.stringify(result,null,2)+'\n';
       if(output) save(output,text); else process.stdout.write(text);
+      // A completed scan with findings is distinct from a format/IO error.
+      if((command==='qc'||command==='qc-csv')&&result.status==='issues')process.exitCode=3;
     }
   }
 } catch(error) {console.error(`segy: ${error.message}`);process.exitCode=2;}

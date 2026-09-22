@@ -1,0 +1,175 @@
+{
+  "recorded_utc": "2026-09-22T12:00:10.944Z",
+  "project": "segy",
+  "status": "passed",
+  "original_revision": "5c740a60a4eb5b9e5e06366b71e60b943f6ba24d",
+  "change": "Dataset/subset/gather QC, source trace and byte/sample locations, full counters, sample-weighted moments of complete analyzable traces, bounded JSON/CSV issues and pure MoonBit example.",
+  "compatibility_changes": [
+    "CLI Int32 indices, headers and budgets reject fractional inputs.",
+    "QC exits 3 with completed findings; malformed input/IO remains exit 2."
+  ],
+  "checks": {
+    "core_js": 20,
+    "core_wasm_gc": 20,
+    "strict_all_target_check": true,
+    "baseline_cases": 332,
+    "baseline_checks": 1171,
+    "baseline_cli": 16,
+    "quality_cases": 146,
+    "quality_checks": 165,
+    "quality_cli": 15,
+    "example_targets": [
+      "js",
+      "wasm-gc"
+    ]
+  },
+  "preceding_checks": {
+    "note": "Executed in this task turn before the remaining-check script. New QC reference passed before final formatting/help/docs; there was no subsequent behavior change. Strict all-target check and both backend tests followed formatting and interface generation.",
+    "commands": [
+      "python tools/verify-quality.py --evidence evidence/quality-reference.json",
+      "moon fmt",
+      "moon info",
+      "moon check --target all --deny-warn",
+      "moon test --target js --deny-warn",
+      "moon test --target wasm-gc --deny-warn"
+    ],
+    "test_stdout": "Total tests: 20, passed: 20, failed: 0."
+  },
+  "source_sha256": {
+    ".gitattributes": "fd113c7e0cb683ca496478a3822c9c41580d630685cfc98735df14d2c005527e",
+    ".github/workflows/ci.yml": "636a83e4367a9be8e8c66a894ebb28fc4f6f08a3799fbdc6cfd52778fcb21d6a",
+    ".gitignore": "79ec1f1478827737eab5a6a946e942e090507c83c3b501e536f3d9eedc9110d5",
+    "AGENTS.md": "02597a0c3d270d1291cc520147b788beeb3cb4d433e54cc9e58dc8b4aebad0a8",
+    "LICENSE": "d9d7dc70f623aa3bde9ce6eab2887aa1e4967713458a9c6325023282d7356186",
+    "README.md": "0ab9ba316946037c2eff12d3d0b73d79adbe4202b64bdca12f5b42819bf71936",
+    "analysis.mbt": "97267c7664e8ac4fb3f932bccef9517c5fbd1f7aab62f0b820782c65d8214736",
+    "binary.mbt": "c06a99ff2a56cd768f2d4c9c8f48b2f1b1b51ec6ea2fd48a94978f820c66098a",
+    "cmd/bridge/main.mbt": "211288dd24d35b3e7647f75897d28791c50fca40615c6c2e17303af974ded093",
+    "cmd/bridge/moon.pkg": "34c3a8f11e1405514c8c5e5fe2d5968dc191890eb77a32a81c43ddfaf73fa13e",
+    "codec_test.mbt": "6d6f768abcf12f32fd47267f5d78599c9ea489fdc62b9adbef650f379ddf4493",
+    "coordinates.mbt": "678f6aadd15b78f5f294b608152c938d9243245f61d788fbbc914e5f528194e1",
+    "dataset.mbt": "1ff285372694f80467ddfc55f5a9d75276e3f6a9b9f1e149e303736e613ea15b",
+    "dataset_test.mbt": "50c336eb052a50dd2e388434c0683e444671368e76ee6b49335891c6611d02ff",
+    "docs/PROGRESS.md": "6f41980db09fec66711896b9720e08ec3199786170e9b65b7b372ea70441a668",
+    "docs/QUALITY.md": "b90fa4fb2edb4e648c982afe924b087ca286b1fd3d48d30d23091f64b9282fcf",
+    "docs/SCOPE.md": "a506a5559d0f9b0f5ee0782bea6c7e29c0d6fc9a2688f90ee0e8fbb1d1dd0874",
+    "docs/SOURCES.md": "f8ab036c5045665335b4d2f030002dd703dcf7378e4c76ab950049eef2ebc715",
+    "docs/SVG-REVIEW.md": "169b20a3913fd77b7fa5b6e2a00a20656c13898d70f9b48b77d19c7c76fcb930",
+    "docs/TESTING.md": "fea8216efe689cc28fe1821e51b2dbea0e66f45fd85c50aafe1862c67fd52f20",
+    "examples/create.json": "bf679d45e8d72ba77c93b2b22d2c67f9ca79346e529f87fa3ee4ccd3b0ee891d",
+    "examples/groups.json": "10ad95f38623f4812e4625d094bfaa39cf69784eac0d132860d227b53020d182",
+    "examples/quality.json": "c9ac812a3e988b65561c9e363e9dceb89640a8d9703317390dfe7bd938efd3fe",
+    "examples/quality_check/main.mbt": "af2255017084ebad1dc9d6cdc23e6e6c98bfceb0b58fcade53230f8d8a413080",
+    "examples/quality_check/moon.pkg": "7268348a927e9f8c6293a32769d8228f4b60dce293847cdda66ca70834bab2eb",
+    "examples/quality_check/pkg.generated.mbti": "4f3e387b7560d5a9885846b1119dea0e0036f2bb192d59c06931ce2bf7ae65a2",
+    "examples/select.json": "6a80fbeea13e984ee4a71a06c6572d79d34cba3ecd18a217fac377ab21c345bc",
+    "examples/stats.json": "0171ba509b5ebc6d3c343677bbf79f95d7ce5fcb3905d4acf4b765d9366b987b",
+    "examples/trace.json": "a8a95f3ea823d3988a3c1cd91ad31438d0e4b9ebe0e254458d6aafbae78c0560",
+    "examples/window.json": "b8fbda12c5b1ddc0e3c2acf3069f2167e2ee58ab6329cd3bddc5e48c0451c2f5",
+    "header.mbt": "1be02ee08058a9cc8e5ea7443aae05d22d5895f24e9aaa8ee550114caf5b4d89",
+    "moon.mod": "e58790a60aa41bf0c29a3dcada080e588950c2f7b815fcf13c559e4625fd0bee",
+    "moon.pkg": "15f0ce29ac604fb0a533967bded38e5af1a4c5d7e0233f1522ebb16da029e8a4",
+    "operations_test.mbt": "dd6223961627d95a82f0fcafd2bd2872ff04822b1510dfeae246a67e972bc4b5",
+    "pkg.generated.mbti": "a8f5bdb7004e4ce16d67b542d325c572dabfde2dcd65e90066e74a36347b4f9d",
+    "quality.mbt": "faf910bc904f3b0fccf03388dfc88348706a74ae1a5ef0d2baeeac8473e3977f",
+    "quality_moments.mbt": "71a86dcc1e170df8577b8667ab845e9c78947290b32acabe3e6d1c9f9542a8c9",
+    "quality_test.mbt": "8eee0664d95d45b1d29dc0d46b0c9c9455493f049339364e5f715bdb7784b0c8",
+    "sample.mbt": "d7aa4b1c1eceb88ffaea55936f05d3f0b7b1034ff6076fe189bd3277c16236c3",
+    "text.mbt": "797811fa0462cb019772f86d1bfe4503c6e446d33dd355fbc40bb3ac863c2ff4",
+    "tools/check-cli.mjs": "38ab2a2cbd34ac9d1d9d9ae2782247484059323059b32e30ddae5f7834688afe",
+    "tools/oracle-host.mjs": "330fcc9e1dc1b9effe09403c0c54e36a4a213d6e2bfac621dad7832dae5e70bc",
+    "tools/requirements.txt": "6a8d759cf2f258fca7f003c474beeef49d4aff1b0c191fb3a3dda604f7d9c9cf",
+    "tools/segy.mjs": "91ff5640a69b562e64ca634e2135ca58e4fd46268406135d7f2b31b30870f388",
+    "tools/verify-quality.py": "326423afb4ca283917b7a87b811d731abbec9ce24adc264dccb8c44e8ee142d3",
+    "tools/verify-reference.py": "f9591e621327a16ec91de62baeac9debd1744a46c16545d1ccf185d3e69cecfe",
+    "trace.mbt": "b382504dcbed30af919e3b83a39adf1aaa84973294dc28ce1746023bfe2df38d",
+    "transform.mbt": "62a085abf0790031bdddf4b16ce0acd8213a922a740571cb6a1a5318e442509b"
+  },
+  "hash_normalization": "CRLF -> LF for source and reference receipt text",
+  "evidence_sha256": {
+    "quality-reference.json": "fc0cc627e6ed570e94cfc566b8aa7d4cf4aba37630854547aafd69cf9be95b09",
+    "quality-baseline-reference.json": "f945bf97c34f93cdac398b20493dd6d667fdcb94dfeba62906090652e9c795bb"
+  },
+  "historical_evidence": "reference.json and svg-review-20260922.json remain historical. Baseline rerun raw source hashes verified on Windows before sealing; this receipt supplies portable LF-normalized hashes. SVG source unchanged; no new browser claim.",
+  "remote_ci_run": false,
+  "publication": "outside local implementation scope; handled by team",
+  "commands": [
+    {
+      "command": "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-21\\moonbit-local-continuation\\work\\moon-ci-snapshot\\bin\\moon.exe",
+      "args": [
+        "fmt",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Finished. moon: ran 21 tasks, now up to date\n"
+    },
+    {
+      "command": "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-21\\moonbit-local-continuation\\work\\moon-ci-snapshot\\bin\\moon.exe",
+      "args": [
+        "build",
+        "--target",
+        "js",
+        "--release",
+        "--deny-warn"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "Finished. moon: no work to do\n"
+    },
+    {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "tools/check-cli.mjs"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\":\"passed\",\"checks\":16}\n",
+      "stderr": ""
+    },
+    {
+      "command": "C:/Users/uiwcv/Documents/Codex/2026-09-10/ban/work/five-reference312/Scripts/python.exe",
+      "args": [
+        "tools/verify-reference.py",
+        "--evidence",
+        "evidence/quality-baseline-reference.json"
+      ],
+      "exit_code": 0,
+      "stdout": "{\r\n  \"status\": \"passed\",\r\n  \"cases\": 332,\r\n  \"checks\": 1171,\r\n  \"seed\": 20260922,\r\n  \"elapsed_seconds\": 1.6740260000005946,\r\n  \"versions\": {\r\n    \"python\": \"3.12.14\",\r\n    \"numpy\": \"2.5.3\",\r\n    \"segyio\": \"1.9.14\",\r\n    \"node\": \"v24.11.0\",\r\n    \"platform\": \"Windows-11-10.0.26200-SP0\"\r\n  },\r\n  \"benchmark\": {\r\n    \"traces\": 64,\r\n    \"samples_per_trace\": 1000,\r\n    \"bytes\": 274960,\r\n    \"operation\": \"scan + finite validation + JSON IPC\",\r\n    \"seconds\": 0.01571420000072976\r\n  },\r\n  \"limits\": [\r\n    \"segyio fixed trace interoperability only; code 7, variable/rev2 verified by independent struct\",\r\n    \"CP037 only, not every EBCDIC variant\",\r\n    \"no unknown trace-header remapping/extensions\",\r\n    \"raw amplitude statistics, not physical acquisition calibration\"\r\n  ]\r\n}\r\n",
+      "stderr": ""
+    },
+    {
+      "command": "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-21\\moonbit-local-continuation\\work\\moon-ci-snapshot\\bin\\moon.exe",
+      "args": [
+        "run",
+        "examples/quality_check",
+        "--target",
+        "js"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\":\"issues\",\"source_trace_count\":3,\"weighted\":false,\"dead_threshold\":0,\"clip_threshold\":4,\"clipping_checked\":true,\"group_by\":\"ensemble\",\"summary\":{\"traces\":3,\"samples\":8,\"analyzed_traces\":3,\"analyzed_samples\":8,\"problem_traces\":2,\"nonfinite_samples\":0,\"integer_range_samples\":0,\"negative_weighting_traces\":0,\"weighting_range_samples\":0,\"dead_traces\":1,\"header_dead_traces\":1,\"clipped_traces\":1,\"clipped_samples\":2,\"minimum_samples\":2,\"maximum_samples\":3,\"minimum_interval_us\":1000,\"maximum_interval_us\":2000,\"statistics\":{\"samples\":8,\"minimum\":-5,\"maximum\":5,\"mean\":0,\"rms\":2.5495097567963927,\"standard_deviation\":2.5495097567963927}},\"groups\":[{\"value\":10,\"first_trace\":0,\"summary\":{\"traces\":2,\"samples\":6,\"analyzed_traces\":2,\"analyzed_samples\":6,\"problem_traces\":1,\"nonfinite_samples\":0,\"integer_range_samples\":0,\"negative_weighting_traces\":0,\"weighting_range_samples\":0,\"dead_traces\":1,\"header_dead_traces\":1,\"clipped_traces\":0,\"clipped_samples\":0,\"minimum_samples\":3,\"maximum_samples\":3,\"minimum_interval_us\":2000,\"maximum_interval_us\":2000,\"statistics\":{\"samples\":6,\"minimum\":-1,\"maximum\":1,\"mean\":0,\"rms\":0.5773502691896257,\"standard_deviation\":0.5773502691896257}}},{\"value\":20,\"first_trace\":2,\"summary\":{\"traces\":1,\"samples\":2,\"analyzed_traces\":1,\"analyzed_samples\":2,\"problem_traces\":1,\"nonfinite_samples\":0,\"integer_range_samples\":0,\"negative_weighting_traces\":0,\"weighting_range_samples\":0,\"dead_traces\":0,\"header_dead_traces\":0,\"clipped_traces\":1,\"clipped_samples\":2,\"minimum_samples\":2,\"maximum_samples\":2,\"minimum_interval_us\":1000,\"maximum_interval_us\":1000,\"statistics\":{\"samples\":2,\"minimum\":-5,\"maximum\":5,\"mean\":0,\"rms\":5,\"standard_deviation\":5}}}],\"details\":[{\"trace\":1,\"header_offset\":3864,\"sample_offset\":4104,\"sequence_line\":0,\"sequence_file\":0,\"field_record\":0,\"ensemble\":10,\"identification\":2,\"samples\":3,\"interval_us\":2000,\"weighting\":0,\"flags\":[\"dead_amplitude\",\"header_dead\"],\"nonfinite_samples\":0,\"first_nonfinite_sample\":null,\"integer_range_samples\":0,\"first_integer_range_sample\":null,\"weighting_range_samples\":0,\"first_weighting_range_sample\":null,\"statistics\":{\"samples\":3,\"minimum\":0,\"maximum\":0,\"mean\":0,\"rms\":0,\"standard_deviation\":0,\"dead\":true,\"clipped_samples\":0,\"clipping_checked\":true}},{\"trace\":2,\"header_offset\":4128,\"sample_offset\":4368,\"sequence_line\":0,\"sequence_file\":0,\"field_record\":0,\"ensemble\":20,\"identification\":0,\"samples\":2,\"interval_us\":1000,\"weighting\":0,\"flags\":[\"clip_threshold\"],\"nonfinite_samples\":0,\"first_nonfinite_sample\":null,\"integer_range_samples\":0,\"first_integer_range_sample\":null,\"weighting_range_samples\":0,\"first_weighting_range_sample\":null,\"statistics\":{\"samples\":2,\"minimum\":-5,\"maximum\":5,\"mean\":0,\"rms\":5,\"standard_deviation\":5,\"dead\":false,\"clipped_samples\":2,\"clipping_checked\":true}}],\"max_details\":10,\"details_truncated\":false}\ntrace,header_offset,sample_offset,sequence_line,sequence_file,field_record,ensemble,samples,interval_us,flags,nonfinite_samples,first_nonfinite_sample,integer_range_samples,first_integer_range_sample,weighting_range_samples,first_weighting_range_sample,statistics_available,dead,clipped_samples,mean,rms\n1,3864,4104,0,0,0,10,3,2000,dead_amplitude;header_dead,0,,0,,0,,true,true,0,0,0\n2,4128,4368,0,0,0,20,2,1000,clip_threshold,0,,0,,0,,true,false,2,0,5\n\n",
+      "stderr": ""
+    },
+    {
+      "command": "C:\\Users\\uiwcv\\Documents\\Codex\\2026-09-21\\moonbit-local-continuation\\work\\moon-ci-snapshot\\bin\\moon.exe",
+      "args": [
+        "run",
+        "examples/quality_check",
+        "--target",
+        "wasm-gc"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\":\"issues\",\"source_trace_count\":3,\"weighted\":false,\"dead_threshold\":0,\"clip_threshold\":4,\"clipping_checked\":true,\"group_by\":\"ensemble\",\"summary\":{\"traces\":3,\"samples\":8,\"analyzed_traces\":3,\"analyzed_samples\":8,\"problem_traces\":2,\"nonfinite_samples\":0,\"integer_range_samples\":0,\"negative_weighting_traces\":0,\"weighting_range_samples\":0,\"dead_traces\":1,\"header_dead_traces\":1,\"clipped_traces\":1,\"clipped_samples\":2,\"minimum_samples\":2,\"maximum_samples\":3,\"minimum_interval_us\":1000,\"maximum_interval_us\":2000,\"statistics\":{\"samples\":8,\"minimum\":-5,\"maximum\":5,\"mean\":0,\"rms\":2.5495097567963927,\"standard_deviation\":2.5495097567963927}},\"groups\":[{\"value\":10,\"first_trace\":0,\"summary\":{\"traces\":2,\"samples\":6,\"analyzed_traces\":2,\"analyzed_samples\":6,\"problem_traces\":1,\"nonfinite_samples\":0,\"integer_range_samples\":0,\"negative_weighting_traces\":0,\"weighting_range_samples\":0,\"dead_traces\":1,\"header_dead_traces\":1,\"clipped_traces\":0,\"clipped_samples\":0,\"minimum_samples\":3,\"maximum_samples\":3,\"minimum_interval_us\":2000,\"maximum_interval_us\":2000,\"statistics\":{\"samples\":6,\"minimum\":-1,\"maximum\":1,\"mean\":0,\"rms\":0.5773502691896257,\"standard_deviation\":0.5773502691896257}}},{\"value\":20,\"first_trace\":2,\"summary\":{\"traces\":1,\"samples\":2,\"analyzed_traces\":1,\"analyzed_samples\":2,\"problem_traces\":1,\"nonfinite_samples\":0,\"integer_range_samples\":0,\"negative_weighting_traces\":0,\"weighting_range_samples\":0,\"dead_traces\":0,\"header_dead_traces\":0,\"clipped_traces\":1,\"clipped_samples\":2,\"minimum_samples\":2,\"maximum_samples\":2,\"minimum_interval_us\":1000,\"maximum_interval_us\":1000,\"statistics\":{\"samples\":2,\"minimum\":-5,\"maximum\":5,\"mean\":0,\"rms\":5,\"standard_deviation\":5}}}],\"details\":[{\"trace\":1,\"header_offset\":3864,\"sample_offset\":4104,\"sequence_line\":0,\"sequence_file\":0,\"field_record\":0,\"ensemble\":10,\"identification\":2,\"samples\":3,\"interval_us\":2000,\"weighting\":0,\"flags\":[\"dead_amplitude\",\"header_dead\"],\"nonfinite_samples\":0,\"first_nonfinite_sample\":null,\"integer_range_samples\":0,\"first_integer_range_sample\":null,\"weighting_range_samples\":0,\"first_weighting_range_sample\":null,\"statistics\":{\"samples\":3,\"minimum\":0,\"maximum\":0,\"mean\":0,\"rms\":0,\"standard_deviation\":0,\"dead\":true,\"clipped_samples\":0,\"clipping_checked\":true}},{\"trace\":2,\"header_offset\":4128,\"sample_offset\":4368,\"sequence_line\":0,\"sequence_file\":0,\"field_record\":0,\"ensemble\":20,\"identification\":0,\"samples\":2,\"interval_us\":1000,\"weighting\":0,\"flags\":[\"clip_threshold\"],\"nonfinite_samples\":0,\"first_nonfinite_sample\":null,\"integer_range_samples\":0,\"first_integer_range_sample\":null,\"weighting_range_samples\":0,\"first_weighting_range_sample\":null,\"statistics\":{\"samples\":2,\"minimum\":-5,\"maximum\":5,\"mean\":0,\"rms\":5,\"standard_deviation\":5,\"dead\":false,\"clipped_samples\":2,\"clipping_checked\":true}}],\"max_details\":10,\"details_truncated\":false}\ntrace,header_offset,sample_offset,sequence_line,sequence_file,field_record,ensemble,samples,interval_us,flags,nonfinite_samples,first_nonfinite_sample,integer_range_samples,first_integer_range_sample,weighting_range_samples,first_weighting_range_sample,statistics_available,dead,clipped_samples,mean,rms\n1,3864,4104,0,0,0,10,3,2000,dead_amplitude;header_dead,0,,0,,0,,true,true,0,0,0\n2,4128,4368,0,0,0,20,2,1000,clip_threshold,0,,0,,0,,true,false,2,0,5\n\n",
+      "stderr": ""
+    },
+    {
+      "command": "git",
+      "args": [
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ]
+}

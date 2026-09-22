@@ -25,6 +25,16 @@ pub fn sample_width(Int) -> Int raise
 // Errors
 
 // Types and methods
+pub struct AmplitudeStatistics {
+  samples : Int
+  minimum : Double
+  maximum : Double
+  mean : Double
+  rms : Double
+  standard_deviation : Double
+} derive(ToJson)
+pub fn AmplitudeStatistics::to_json(Self) -> Json
+
 pub struct Dataset {
   header : FileHeader
   // private fields
@@ -36,6 +46,7 @@ pub fn Dataset::extended_headers(Self) -> Array[Bytes]
 pub fn Dataset::find_traces(Self, String, Int, Int) -> Array[Int] raise
 pub fn Dataset::groups(Self, String) -> Array[TraceGroup] raise
 pub fn Dataset::nonfinite_samples(Self) -> Int raise
+pub fn Dataset::quality_check(Self, traces? : Array[Int], group_by? : String, dead_threshold? : Double, clip_threshold? : Double, weighted? : Bool, max_details? : Int, max_groups? : Int) -> QualityReport raise
 pub fn Dataset::select(Self, Array[Int]) -> Self raise
 pub fn Dataset::trace(Self, Int) -> Trace raise
 pub fn Dataset::trace_count(Self) -> Int
@@ -62,6 +73,54 @@ pub struct FileHeader {
   text_encoding : String
   raw : Bytes
 }
+
+pub struct QualityGroup {
+  value : Int
+  first_trace : Int
+  summary : QualitySummary
+} derive(ToJson)
+pub fn QualityGroup::to_json(Self) -> Json
+
+pub struct QualityReport {
+  status : String
+  source_trace_count : Int
+  weighted : Bool
+  dead_threshold : Double
+  clip_threshold : Double
+  clipping_checked : Bool
+  group_by : String?
+  summary : QualitySummary
+  groups : Array[QualityGroup]
+  details : Array[TraceQuality]
+  max_details : Int
+  details_truncated : Bool
+}
+pub fn QualityReport::issues_csv(Self) -> String
+pub fn QualityReport::to_json(Self) -> Json
+pub impl ToJson for QualityReport
+
+pub struct QualitySummary {
+  traces : Int
+  samples : Int
+  analyzed_traces : Int
+  analyzed_samples : Int
+  problem_traces : Int
+  nonfinite_samples : Int
+  integer_range_samples : Int
+  negative_weighting_traces : Int
+  weighting_range_samples : Int
+  dead_traces : Int
+  header_dead_traces : Int
+  clipped_traces : Int
+  clipped_samples : Int
+  minimum_samples : Int
+  maximum_samples : Int
+  minimum_interval_us : Double
+  maximum_interval_us : Double
+  statistics : AmplitudeStatistics?
+}
+pub fn QualitySummary::to_json(Self) -> Json
+pub impl ToJson for QualitySummary
 
 pub(all) enum Sample {
   Signed(Int64)
@@ -98,6 +157,30 @@ pub(all) struct TraceIndex {
   interval_us : Double
 } derive(ToJson)
 pub fn TraceIndex::to_json(Self) -> Json
+
+pub struct TraceQuality {
+  trace : Int
+  header_offset : Int
+  sample_offset : Int
+  sequence_line : Int
+  sequence_file : Int
+  field_record : Int
+  ensemble : Int
+  identification : Int
+  samples : Int
+  interval_us : Double
+  weighting : Int
+  flags : Array[String]
+  nonfinite_samples : Int
+  first_nonfinite_sample : Int?
+  integer_range_samples : Int
+  first_integer_range_sample : Int?
+  weighting_range_samples : Int
+  first_weighting_range_sample : Int?
+  statistics : TraceStatistics?
+}
+pub fn TraceQuality::to_json(Self) -> Json
+pub impl ToJson for TraceQuality
 
 pub(all) struct TraceStatistics {
   samples : Int

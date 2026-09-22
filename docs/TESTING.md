@@ -1,5 +1,19 @@
 # 独立验证记录
 
+## QC增强后的当前验证（2026-09-22）
+
+- fmt/info、strict all-target check、release JS构建通过；JS/Wasm-GC各20个测试块（原13加7个QC契约测试）。
+- 新verify-quality.py：146场景、165项检查、15项真实CLI通过。struct与segyio独立造文件，NumPy独立汇总，区分整数范围限制和非有限数据，包含大小端、三版本、CP037、变长道、坏样本、权重、原始定位、分组及截断。
+- 原verify-reference.py在当前代码重新通过332场景/1171项，原CLI16项通过。没有重跑未变化的浏览器截图步骤，原SVG实现未改。
+- 纯MoonBit QC示例在JS/Wasm-GC实际运行：8样本、两组、两条问题道；JSON与CSV原始道号一致。
+- 新100/1000道各256样本的合成测量在quality-reference.json；时间包含解析、扫描和JSON通信，不含Python期望值计算，不是速度排名或实测数据质量证明。
+
+总记录 `evidence/quality-20260922.json` 绑定全部非evidence源文件与两份参考回执，文本按CRLF→LF规范化。原 `reference.json`、SVG审查记录保留历史，不覆盖。
+本次原参考回执 `quality-baseline-reference.json` 内部为Windows原始字节散列；跨平台归档以总记录的规范化源码散列为准。普通脚本运行不修改保存证据，需显式 `--evidence PATH`。
+CI新增QC参考与两后端示例；仍未执行远程CI或发布，发布/人员/申报由团队负责，不阻止本地技术开发。
+
+## 增强前基线（历史）
+
 2026-09-22 Windows 11 本机执行；moon 0.1.20260920 / moonc 0.10.14，Node24.11.0。fmt/all-target check/info 无警告，JS/Wasm-GC各13组核心测试；CLI16项检查含真实创建/读取/窗口/导出、错误退出和拒绝覆盖。没有运行远程CI。
 
 ## 外部参照

@@ -1,0 +1,8 @@
+{
+  "group_by": "ensemble",
+  "dead_threshold": 0,
+  "clip_threshold": 1.5,
+  "weighted": false,
+  "max_details": 256,
+  "max_groups": 65536
+}

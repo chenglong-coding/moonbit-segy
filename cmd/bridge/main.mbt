@@ -48,6 +48,81 @@ fn endian(o : Map[String, Json]) -> @lib.Endian raise {
 }
 
 ///|
+// FromJson[Int] truncates fractions. Source indices, fields and budgets must
+// instead be exact Int32 values; amplitude samples have their own Int64 path.
+fn integer(j : Json, key : String) -> Int raise {
+  let value : Double = @json.from_json(j)
+  if value.is_nan() ||
+    value.is_inf() ||
+    value.floor() != value ||
+    value < -2147483648.0 ||
+    value > 2147483647.0 {
+    raise Failure(key + " must be an exact Int32 integer")
+  }
+  value.to_int()
+}
+
+///|
+fn required_int(o : Map[String, Json], key : String) -> Int raise {
+  integer(required(o, key), key)
+}
+
+///|
+fn optional_int(
+  o : Map[String, Json],
+  key : String,
+  fallback : Int,
+) -> Int raise {
+  match o.get(key) {
+    Some(j) => integer(j, key)
+    None => fallback
+  }
+}
+
+///|
+fn indices(o : Map[String, Json]) -> Array[Int] raise {
+  let values : Array[Json] = required(o, "traces")
+  values.map(j => integer(j, "traces"))
+}
+
+///|
+fn fields(o : Map[String, Json]) -> Map[String, Int] raise {
+  let values : Map[String, Json] = optional(o, "fields", Map([]))
+  let out : Map[String, Int] = Map([])
+  for key, j in values {
+    out[key] = integer(j, key)
+  }
+  out
+}
+
+///|
+fn quality(d : @lib.Dataset, o : Map[String, Json]) -> @lib.QualityReport raise {
+  for key in o.keys() {
+    if ![
+        "command", "endian", "text_encoding", "traces", "group_by", "dead_threshold",
+        "clip_threshold", "weighted", "max_details", "max_groups",
+      ].contains(key) {
+      raise Failure("unknown QC option: " + key)
+    }
+  }
+  let selected = if o.contains("traces") { Some(indices(o)) } else { None }
+  let group : String? = if o.contains("group_by") {
+    Some(required(o, "group_by"))
+  } else {
+    None
+  }
+  d.quality_check(
+    traces?=selected,
+    group_by?=group,
+    dead_threshold=optional(o, "dead_threshold", 0.0),
+    clip_threshold=optional(o, "clip_threshold", 0.0),
+    weighted=optional(o, "weighted", false),
+    max_details=optional_int(o, "max_details", 256),
+    max_groups=optional_int(o, "max_groups", 65536),
+  )
+}
+
+///|
 fn read(data : Bytes, o : Map[String, Json]) -> @lib.Dataset raise {
   if o.contains("text_encoding") {
     let encoding : String = required(o, "text_encoding")
@@ -113,25 +188,33 @@ fn do_report(data : Bytes, options : String) -> String raise {
       d
       .find_traces(
         required(o, "field"),
-        required(o, "minimum"),
-        required(o, "maximum"),
+        required_int(o, "minimum"),
+        required_int(o, "maximum"),
       )
       .to_json()
     "stats" =>
       d
-      .trace(required(o, "trace"))
+      .trace(required_int(o, "trace"))
       .statistics(
         dead_threshold=optional(o, "dead_threshold", 0.0),
         clip_threshold=optional(o, "clip_threshold", 0.0),
         weighted=optional(o, "weighted", false),
       )
       .to_json()
-    "csv" => { "text": d.csv(required(o, "traces")).to_json() }
-    "svg" => { "text": d.trace(required(o, "trace")).svg().to_json() }
+    "qc" => quality(d, o).to_json()
+    "qc-csv" => {
+      let result = quality(d, o)
+      {
+        "text": result.issues_csv().to_json(),
+        "status": result.status.to_json(),
+      }
+    }
+    "csv" => { "text": d.csv(indices(o)).to_json() }
+    "svg" => { "text": d.trace(required_int(o, "trace")).svg().to_json() }
     "trace" => {
-      let t = d.trace(required(o, "trace"))
-      let first : Int = optional(o, "first", 0)
-      let count : Int = optional(o, "count", t.samples())
+      let t = d.trace(required_int(o, "trace"))
+      let first = optional_int(o, "first", 0)
+      let count = optional_int(o, "count", t.samples())
       if first < 0 ||
         count < 0 ||
         count > 100000 ||
@@ -161,7 +244,7 @@ fn do_report(data : Bytes, options : String) -> String raise {
       }
     }
     "coordinate" => {
-      let t = d.trace(required(o, "trace"))
+      let t = d.trace(required_int(o, "trace"))
       let field : String = required(o, "field")
       let degrees : Bool = optional(o, "degrees", false)
       (if degrees {
@@ -182,17 +265,17 @@ fn do_transform(data : Bytes, options : String) -> Bytes raise {
   let command : String = required(o, "command")
   let out = match command {
     "copy" => d
-    "select" => d.select(required(o, "traces"))
+    "select" => d.select(indices(o))
     "filter" =>
       d.select(
         d.find_traces(
           required(o, "field"),
-          required(o, "minimum"),
-          required(o, "maximum"),
+          required_int(o, "minimum"),
+          required_int(o, "maximum"),
         ),
       )
-    "window" => d.window(required(o, "first"), required(o, "count"))
-    "convert" => d.convert_samples(required(o, "sample_code"))
+    "window" => d.window(required_int(o, "first"), required_int(o, "count"))
+    "convert" => d.convert_samples(required_int(o, "sample_code"))
     _ => raise Failure("unknown transform command")
   }
   out.encode()
@@ -205,8 +288,8 @@ fn do_new(options : String) -> Bytes raise {
   if rows.is_empty() || rows.length() > 1000000 {
     raise Failure("invalid trace count")
   }
-  let code : Int = optional(o, "sample_code", 5)
-  let revision : Int = optional(o, "revision", 1)
+  let code = optional_int(o, "sample_code", 5)
+  let revision = optional_int(o, "revision", 1)
   let interval : Double = required(o, "interval_us")
   let first : Array[Json] = required(rows[0], "samples")
   let text : String = optional(
@@ -256,7 +339,7 @@ fn do_new(options : String) -> Bytes raise {
       h,
       values,
       interval_us=optional(row, "interval_us", interval),
-      fields=optional(row, "fields", Map([])),
+      fields=fields(row),
     )
   })
   let blocks : Array[String] = optional(o, "extensions", [])
