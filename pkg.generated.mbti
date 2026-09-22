@@ -2,6 +2,10 @@
 package "localreview/segy"
 
 // Values
+pub fn create(FileHeader, Array[Trace], extended_headers? : Array[Bytes]) -> Dataset raise
+
+pub fn decode(Bytes, endian? : Endian, text_encoding? : String) -> Dataset raise
+
 pub fn decode_sample(Bytes, Int, Int, Endian) -> Sample raise
 
 pub fn decode_text(Bytes, String) -> String raise
@@ -12,6 +16,8 @@ pub fn encode_text(String, String) -> Bytes raise
 
 pub fn make_header(Int, Double, Int, endian? : Endian, revision? : Int, fixed_length? : Bool, text? : String, text_encoding? : String, extended_count? : Int) -> FileHeader raise
 
+pub fn make_trace(FileHeader, Array[Sample], interval_us? : Double, fields? : Map[String, Int]) -> Trace raise
+
 pub fn parse_header(Bytes, endian? : Endian, text_encoding? : String) -> FileHeader raise
 
 pub fn sample_width(Int) -> Int raise
@@ -19,6 +25,16 @@ pub fn sample_width(Int) -> Int raise
 // Errors
 
 // Types and methods
+pub struct Dataset {
+  header : FileHeader
+  // private fields
+}
+pub fn Dataset::encode(Self) -> Bytes
+pub fn Dataset::extended_headers(Self) -> Array[Bytes]
+pub fn Dataset::trace(Self, Int) -> Trace raise
+pub fn Dataset::trace_count(Self) -> Int
+pub fn Dataset::trace_index(Self) -> Array[TraceIndex]
+
 pub(all) enum Endian {
   Big
   Little
@@ -45,6 +61,24 @@ pub(all) enum Sample {
   Real(Double)
 }
 pub fn Sample::as_double(Self) -> Double raise
+
+pub struct Trace {
+  // private fields
+}
+pub fn Trace::field(Self, String) -> Int raise
+pub fn Trace::interval_us(Self) -> Double
+pub fn Trace::raw_header(Self) -> Bytes
+pub fn Trace::raw_samples(Self) -> Bytes
+pub fn Trace::sample(Self, Int) -> Sample raise
+pub fn Trace::samples(Self) -> Int
+
+pub(all) struct TraceIndex {
+  header_offset : Int
+  sample_offset : Int
+  samples : Int
+  interval_us : Double
+} derive(ToJson)
+pub fn TraceIndex::to_json(Self) -> Json
 
 // Type aliases
 
