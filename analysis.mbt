@@ -124,6 +124,7 @@ pub fn Dataset::csv(self : Dataset, indices : Array[Int]) -> String raise {
 ///|
 /// Standalone, script-free waveform SVG for <=20000 samples. Normalized height
 /// is visual only; title states peak amplitude and time span. No decimation.
+/// A single sample is marked by a point without extending its time span.
 pub fn Trace::svg(self : Trace) -> String raise {
   if self.count > 20000 {
     raise Failure("SVG needs a <=20000-sample window")
@@ -143,8 +144,15 @@ pub fn Trace::svg(self : Trace) -> String raise {
     let y = 180.0 - v / divisor * 120.0
     out.write_string("\{x},\{y} ")
   }
+  out.write_string("\"/>")
+  if self.count == 1 {
+    // A one-vertex polyline paints nothing. Keep the sample at the same
+    // start-time x coordinate, but give it a visible marker, not a fake line.
+    let y = 180.0 - values[0] / divisor * 120.0
+    out.write_string("<circle cx=\"30\" cy=\"\{y}\" r=\"4\" fill=\"#155e9a\"/>")
+  }
   out.write_string(
-    "\"/><text x=\"30\" y=\"338\" font-family=\"sans-serif\" font-size=\"13\">Amplitude normalized for display; no filtering or interpolation.</text></svg>\n",
+    "<text x=\"30\" y=\"338\" font-family=\"sans-serif\" font-size=\"13\">Amplitude normalized for display; no filtering or interpolation.</text></svg>\n",
   )
   out.to_string()
 }

@@ -210,6 +210,26 @@ try:
         data,_=fixture()
         svg=ask(data,'svg',trace=0)['text']
         ET.fromstring(svg);checks+=1
+        # A syntactically valid one-vertex polyline paints no waveform. Check
+        # visible geometry independently of MoonBit string snapshots.
+        ns={'s':'http://www.w3.org/2000/svg'}
+        for values in [[4.0],[-4.0],[0.0],[0.0,0.0,0.0],[-2.0,0.0,2.0],[-1e300,0.0,1e300]]:
+            made=ask(action='create',sample_code=6,interval_us=2000,traces=[{'samples':values}])
+            root=ET.fromstring(ask(made,'svg',trace=0)['text'])
+            points=[tuple(map(float,p.split(','))) for p in root.find('s:polyline',ns).get('points').split()]
+            assert len(points)==len(values);checks+=1
+            assert all(np.isfinite(x) and np.isfinite(y) and 0<=x<=960 and 0<=y<=360 for x,y in points);checks+=1
+            markers=root.findall('s:circle',ns)
+            if len(values)==1:
+                assert len(markers)==1 and float(markers[0].get('r'))>0;checks+=1
+                marker=markers[0]
+                assert (float(marker.get('cx')),float(marker.get('cy')))==points[0];checks+=1
+                y=float(marker.get('cy'))
+                assert (y<180 if values[0]>0 else y>180 if values[0]<0 else y==180);checks+=1
+                assert 't=0..0 s' in ''.join(root.itertext());checks+=1
+            else:
+                assert not markers;checks+=1
+            cases+=1
         for size in [0,3199,3599,6799,len(data)-1]:
             ask(data[:size],reject=True);cases+=1
         for i in range(200):

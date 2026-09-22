@@ -108,3 +108,15 @@ test "window time and selection cannot silently round or duplicate" {
     _ => fail("oversized window accepted")
   }
 }
+
+///|
+test "SVG keeps a single positive negative or zero sample visible" {
+  let h = @segy.make_header(1, 2000.0, 6)
+  for amplitude in [4.0, -4.0, 0.0] {
+    let svg = @segy.make_trace(h, [@segy.Real(amplitude)]).svg()
+    // A one-vertex polyline has no painted segment. A real sample marker is
+    // required even for zero; extending a line would invent a time interval.
+    assert_true(svg.contains("<circle"))
+    assert_true(!svg.contains("NaN") && !svg.contains("Infinity"))
+  }
+}

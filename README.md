@@ -32,6 +32,7 @@ node tools/segy.mjs svg demo.sgy examples/trace.json trace.svg
 ```
 
 示例生成三道合成数据，包含两个同道集波形和一条零幅度道。输出必须是新路径，不覆盖既有文件；错误写 stderr、退出码2。SVG 必须显式选道，超过20000样本请先窗口，不用未经说明的降采样隐藏细节。
+单样本道使用可见圆点表示（包括零值），不虚构时间跨度；多样本道保持逐点折线。
 
 普通命令形式为 `COMMAND INPUT [OPTIONS.json] [OUTPUT]`，选项是 **JSON 文件**；`create OPTIONS.json OUTPUT` 例外。读取报告默认打印 JSON，CSV/SVG 打印文本；二进制操作必须给 OUTPUT。
 
@@ -87,7 +88,8 @@ python -m pip install -r tools/requirements.txt
 python tools/verify-reference.py
 ```
 
-12组测试各在 JS/Wasm-GC 通过，CLI16项；独立326场景/1144项记录在 [reference.json](evidence/reference.json)。segyio 1.9.14不支持24位码7，且不能替代变长道/rev2完整验证：这些用独立 struct/CP037参考，绝不标成 segyio 通过。CI 已配置三系统，远程未执行。
+13组测试各在 JS/Wasm-GC 通过，CLI16项；独立332场景/1171项记录在 [reference.json](evidence/reference.json)。segyio 1.9.14不支持24位码7，且不能替代变长道/rev2完整验证：这些用独立 struct/CP037参考，绝不标成 segyio 通过。CI 已配置三系统，远程未执行。
+SVG 的六类合成样本已在本机真实 Chromium 浏览器中检查，发现并修复单样本不可见问题；见 [图形输出核查](docs/SVG-REVIEW.md)。
 
 依据：[SEG-Y rev2.0 原始规范](https://seg.org/wp-content/uploads/2025/11/seg_y_rev2_0_mar2017.pdf)、[segyio](https://segyio.readthedocs.io/)。CP037 数据表与 Python 独立编码器全256字节互核，非 Python 包装实现。复用本批自有二进制读取设计，未复制第三方库核心。
 

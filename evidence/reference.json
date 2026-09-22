@@ -1,9 +1,9 @@
 {
   "status": "passed",
-  "cases": 326,
-  "checks": 1144,
+  "cases": 332,
+  "checks": 1171,
   "seed": 20260922,
-  "elapsed_seconds": 2.326166299986653,
+  "elapsed_seconds": 1.7386249999999563,
   "versions": {
     "python": "3.12.14",
     "numpy": "2.5.3",
@@ -16,10 +16,10 @@
     "samples_per_trace": 1000,
     "bytes": 274960,
     "operation": "scan + finite validation + JSON IPC",
-    "seconds": 0.026265099993906915
+    "seconds": 0.01705260000017006
   },
   "source_sha256": {
-    "analysis.mbt": "a3749daaa1e4d7cd6b24882539e23ff4507df7e6534209717bfa5e8f568c23f0",
+    "analysis.mbt": "97267c7664e8ac4fb3f932bccef9517c5fbd1f7aab62f0b820782c65d8214736",
     "binary.mbt": "c06a99ff2a56cd768f2d4c9c8f48b2f1b1b51ec6ea2fd48a94978f820c66098a",
     "cmd/bridge/main.mbt": "c61981097a5a2c77e35c68e5111a009c7e0904513f17e893b3c92b79d440cf65",
     "cmd/bridge/moon.pkg": "34c3a8f11e1405514c8c5e5fe2d5968dc191890eb77a32a81c43ddfaf73fa13e",
@@ -30,14 +30,14 @@
     "header.mbt": "1be02ee08058a9cc8e5ea7443aae05d22d5895f24e9aaa8ee550114caf5b4d89",
     "moon.mod": "e58790a60aa41bf0c29a3dcada080e588950c2f7b815fcf13c559e4625fd0bee",
     "moon.pkg": "15f0ce29ac604fb0a533967bded38e5af1a4c5d7e0233f1522ebb16da029e8a4",
-    "operations_test.mbt": "59a71f00e004c9b835b50c179e82de4ebe9015c864ffbe4254b4121bf2418ab8",
+    "operations_test.mbt": "dd6223961627d95a82f0fcafd2bd2872ff04822b1510dfeae246a67e972bc4b5",
     "pkg.generated.mbti": "d9f73f99aa5d394afbc3b64ff19dfa5d4d092fc79326cf963c767a5e982f8ee5",
     "sample.mbt": "d7aa4b1c1eceb88ffaea55936f05d3f0b7b1034ff6076fe189bd3277c16236c3",
     "text.mbt": "797811fa0462cb019772f86d1bfe4503c6e446d33dd355fbc40bb3ac863c2ff4",
     "tools/check-cli.mjs": "38ab2a2cbd34ac9d1d9d9ae2782247484059323059b32e30ddae5f7834688afe",
     "tools/oracle-host.mjs": "330fcc9e1dc1b9effe09403c0c54e36a4a213d6e2bfac621dad7832dae5e70bc",
     "tools/segy.mjs": "93af90e27807a801d66d4298565330d8369d61ab9e2a7eb7ab2fa5d7b73ad961",
-    "tools/verify-reference.py": "04bada7696a0c26073754899ef9436dadf298f29ad0c14e692c1f7cb102f9b7a",
+    "tools/verify-reference.py": "f9591e621327a16ec91de62baeac9debd1744a46c16545d1ccf185d3e69cecfe",
     "trace.mbt": "b382504dcbed30af919e3b83a39adf1aaa84973294dc28ce1746023bfe2df38d",
     "transform.mbt": "62a085abf0790031bdddf4b16ce0acd8213a922a740571cb6a1a5318e442509b"
   },
