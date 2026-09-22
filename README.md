@@ -91,4 +91,6 @@ python tools/verify-reference.py
 
 依据：[SEG-Y rev2.0 原始规范](https://seg.org/wp-content/uploads/2025/11/seg_y_rev2_0_mar2017.pdf)、[segyio](https://segyio.readthedocs.io/)。CP037 数据表与 Python 独立编码器全256字节互核，非 Python 包装实现。复用本批自有二进制读取设计，未复制第三方库核心。
 
+验证工具许可证和合成样例来源见 [SOURCES](docs/SOURCES.md)。
+
 初始查重见五项目选型记录；2026-09-22刷新 MoonBit+SEG-Y/注册表网页/GitLink 索引未命中同向项目，不是全球不存在的证明。已有 miniSEED/SAC 项目不是本库的 SEG-Y 交换工作流。
