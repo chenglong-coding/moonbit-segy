@@ -1,0 +1,22 @@
+{
+  "source": "https://pubs.usgs.gov/ds/259/segy/06c01.seg",
+  "attribution": "U.S. Geological Survey, Data Series 259",
+  "sourceByteRangeHalfOpen": [
+    0,
+    975600
+  ],
+  "inputSha256": "bcaafd0f7e6d416a0552ab265cce2330810c3242c6ba265ee21fbdc39349b604",
+  "options": {
+    "legacy_revision_one": true,
+    "group_by": "trace_in_record",
+    "dead_threshold": 0,
+    "weighted": false,
+    "max_details": 100,
+    "max_groups": 3
+  },
+  "formatAssumptions": [
+    "big-endian revision word 0x0001 explicitly interpreted as revision 1.0; raw bytes retained"
+  ],
+  "csvSha256": "85d1cd9bf4cfc4a88b3507b76c9f5d716f818f0baa50bd1a284789470623d043",
+  "scope": "First 300 traces only; 36 zero-amplitude traces under the stated threshold; no inference of fault cause, calibrated amplitude or CRS"
+}

@@ -4,6 +4,8 @@
 pub struct FileHeader {
   endian : Endian
   revision : Int
+  raw_revision_word : Int
+  assumed_legacy_revision_one : Bool
   sample_code : Int
   samples : Int
   interval_us : Double
@@ -34,6 +36,7 @@ pub fn parse_header(
   data : Bytes,
   endian? : Endian,
   text_encoding? : String,
+  legacy_revision_one? : Bool = false,
 ) -> FileHeader raise {
   need(data, 0, 3600)
   if data.length() > 268435456 {
@@ -77,12 +80,15 @@ pub fn parse_header(
   // Older writers treat the revision pair as an endian uint16. Also accept
   // literal major/minor octets for little-endian rev2 as specified by Table 2.
   let word = uint_at(data, 3500, 2, e).to_int()
+  // Some old exports write big-endian integer 1 (00 01), not the standard
+  // revision-1.0 octets 01 00 at zero-based byte 3500. Never guess by default.
+  let assumed = word == 1 && e == Big && marker == 0UL && legacy_revision_one
   let revision = match word {
     0 => 0
     256 => 1
     512 => 2
     1 | 2 =>
-      if e == Little {
+      if e == Little || assumed {
         word
       } else {
         raise Failure("unsupported revision")
@@ -146,6 +152,8 @@ pub fn parse_header(
   {
     endian: e,
     revision,
+    raw_revision_word: word,
+    assumed_legacy_revision_one: assumed,
     sample_code: code,
     samples,
     interval_us: interval,

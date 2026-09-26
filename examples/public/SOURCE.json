@@ -1,0 +1,15 @@
+{
+  "source": "https://pubs.usgs.gov/ds/259/segy/06c01.seg",
+  "sourceByteRangeHalfOpen": [
+    0,
+    975600
+  ],
+  "derivedFileBytes": 975600,
+  "derivedSha256": "bcaafd0f7e6d416a0552ab265cce2330810c3242c6ba265ee21fbdc39349b604",
+  "completeTraces": 300,
+  "origin": "Explicit prefix derived from earlier interrupted official download; all selected trace boundaries checked independently with Python struct",
+  "originalPartialBytes": 8073216,
+  "originalPartialSha256": "ee07b9a94d98e79ef12317a992f2d465641038c4a4dec0c1a72ed708754ff880",
+  "freshRetrieval": "Range and ordinary GET returned HTTP 403 on 2026-09-27; not represented as a fresh successful download",
+  "scope": "A complete-trace excerpt only, not entire survey and not the incomplete 8073216-byte file. Header bytes retained unchanged."
+}

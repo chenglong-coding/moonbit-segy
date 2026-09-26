@@ -143,6 +143,7 @@ pub extend QualityGroup with ToJson::{to_json}
 /// Details keep the first max_details problem traces in selection order.
 pub struct QualityReport {
   status : String
+  format_assumptions : Array[String]
   source_trace_count : Int
   weighted : Bool
   dead_threshold : Double
@@ -160,6 +161,7 @@ pub struct QualityReport {
 pub impl ToJson for QualityReport with fn to_json(self) {
   {
     "status": self.status.to_json(),
+    "format_assumptions": self.format_assumptions.to_json(),
     "source_trace_count": self.source_trace_count.to_json(),
     "weighted": self.weighted.to_json(),
     "dead_threshold": self.dead_threshold.to_json(),
@@ -511,6 +513,13 @@ pub fn Dataset::quality_check(
       "clear"
     },
     source_trace_count: self.trace_count(),
+    format_assumptions: if self.header.assumed_legacy_revision_one {
+      [
+        "big-endian revision word 0x0001 explicitly interpreted as revision 1.0; raw bytes retained",
+      ]
+    } else {
+      []
+    },
     weighted,
     dead_threshold,
     clip_threshold,
@@ -530,7 +539,8 @@ pub fn Dataset::quality_check(
 
 ///|
 /// Retained problem-trace rows only. Use JSON for aggregate/group statistics,
-/// exclusions and truncation; an empty CSV is NOT evidence of a clear dataset.
+/// exclusions, format assumptions and truncation; an empty CSV is NOT evidence
+/// of a clear dataset. Keep the JSON report alongside an exported issue CSV.
 pub fn QualityReport::issues_csv(self : QualityReport) -> String {
   let out = StringBuilder()
   out.write_string(

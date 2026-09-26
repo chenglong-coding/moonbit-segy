@@ -148,6 +148,7 @@ pub fn Dataset::convert_samples(self : Dataset, code : Int) -> Dataset raise {
     Bytes::from_array(prefix),
     endian=self.header.endian,
     text_encoding=self.header.text_encoding,
+    legacy_revision_one=self.header.assumed_legacy_revision_one,
   )
   let traces = Array::makei(self.trace_count(), i => {
     let t = self.trace(i)

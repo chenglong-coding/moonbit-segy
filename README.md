@@ -6,6 +6,10 @@ MoonBit 原生 SEG-Y 文件交换、道筛选和原始振幅质量检查库。�
 
 `localreview/segy` 是尚未发布的本地模块。MIT；AI 辅助开发并保留真实作者。本地完成不等于远程 CI、注册表发布或正式比赛验收。原范围见 [SCOPE](docs/SCOPE.md)，实测边界见 [TESTING](docs/TESTING.md)。
 
+## 本轮公开道集与兼容边界
+
+已用USGS DS259的明确300道节选验证225000个原始int32样本、36条零道和三个通道分组。新增显式旧版版本字兼容选项；默认严格拒绝，开启后在报告保留解释假设，原字节不变。[PUBLIC-USGS](docs/PUBLIC-USGS.md)说明来源节选、源站当前HTTP403、公开许可与可离线复现流程。此方向作为旧IRC的替代候选，尚无正式仓库或获准换题结论。
+
 ## 支持能力
 
 - 常用 rev0、rev1.0、受限 rev2.0；大/小端识别；ASCII 和 EBCDIC CP037；计数或 EndText 结束的扩展文本块。
@@ -17,7 +21,7 @@ MoonBit 原生 SEG-Y 文件交换、道筛选和原始振幅质量检查库。�
 
 ## 快速运行
 
-需要 MoonBit 与 Node.js 24。实跑版本为 moon 0.1.20260920 / moonc 0.10.14，Windows，JS/Wasm-GC。核心运行不需要 Python/segyio。
+需要 MoonBit 与 Node.js 24。当前固定工具链见`.moonbit-version`；0.2.0检查见docs/TESTING.md，旧0.1.0日志不当作当前版本结论。核心运行不需要 Python/segyio。
 
 ```sh
 moon check --target all

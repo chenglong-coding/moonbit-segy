@@ -1,6 +1,14 @@
 # 独立验证记录
 
-## QC增强后的当前验证（2026-09-22）
+## 0.2.0当前验证（2026-09-27）
+
+固定工具链见`.moonbit-version`；全目标检查、格式/API和release构建通过；JS/Wasm-GC各21测试，CLI16项。修改头解析和QC元信息后，独立旧矩阵重跑：332场景/1171检查通过，QC146场景/165检查/15CLI通过。
+
+新增公开USGS节选：300道、225000个int32与独立struct/NumPy逐值一致，segyio1.9.14另核对float32读取、道数和选择输出；36个零振幅道及字节偏移一致。默认拒绝旧版版本字、显式允许后保留原字节和解释假设、未知版本与截断仍拒绝。当前源码/原始日志见[LOCAL-CHECKS](../evidence/public-20260927/LOCAL-CHECKS.json)，公开输入来源与限制见[PUBLIC-USGS](PUBLIC-USGS.md)。
+
+公开任务实际输出report/CSV/manifest，CSV与JSON同时保留。首次QC尝试因新增兼容选项未加入白名单而失败，修复后通过。新鲜源下载HTTP403并未伪装为成功；节选范围和缓存来源明确记录。未运行远程CI、性能竞争、生产部署或整份调查验收。CI现固定Linux工具链并使用随包节选，无需在线取USGS数据。
+
+## QC增强历史验证（2026-09-22）
 
 - fmt/info、strict all-target check、release JS构建通过；JS/Wasm-GC各20个测试块（原13加7个QC契约测试）。
 - 新verify-quality.py：146场景、165项检查、15项真实CLI通过。struct与segyio独立造文件，NumPy独立汇总，区分整数范围限制和非有限数据，包含大小端、三版本、CP037、变长道、坏样本、权重、原始定位、分组及截断。

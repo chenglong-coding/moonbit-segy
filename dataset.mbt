@@ -42,12 +42,14 @@ pub fn decode(
   data : Bytes,
   endian? : Endian,
   text_encoding? : String,
+  legacy_revision_one? : Bool = false,
 ) -> Dataset raise {
   let h = match (endian, text_encoding) {
-    (Some(e), Some(t)) => parse_header(data, endian=e, text_encoding=t)
-    (Some(e), None) => parse_header(data, endian=e)
-    (None, Some(t)) => parse_header(data, text_encoding=t)
-    (None, None) => parse_header(data)
+    (Some(e), Some(t)) =>
+      parse_header(data, endian=e, text_encoding=t, legacy_revision_one~)
+    (Some(e), None) => parse_header(data, endian=e, legacy_revision_one~)
+    (None, Some(t)) => parse_header(data, text_encoding=t, legacy_revision_one~)
+    (None, None) => parse_header(data, legacy_revision_one~)
   }
   let e = h.endian
   let extensions = []
@@ -252,7 +254,12 @@ fn assemble(
     copy_into(out, pos + 240, t.payload)
     pos += 240 + t.payload.length()
   }
-  decode(Bytes::from_array(out), endian=e, text_encoding=header.text_encoding)
+  decode(
+    Bytes::from_array(out),
+    endian=e,
+    text_encoding=header.text_encoding,
+    legacy_revision_one=header.assumed_legacy_revision_one,
+  )
 }
 
 ///|

@@ -100,7 +100,7 @@ fn quality(d : @lib.Dataset, o : Map[String, Json]) -> @lib.QualityReport raise 
   for key in o.keys() {
     if ![
         "command", "endian", "text_encoding", "traces", "group_by", "dead_threshold",
-        "clip_threshold", "weighted", "max_details", "max_groups",
+        "clip_threshold", "weighted", "max_details", "max_groups", "legacy_revision_one",
       ].contains(key) {
       raise Failure("unknown QC option: " + key)
     }
@@ -124,17 +124,23 @@ fn quality(d : @lib.Dataset, o : Map[String, Json]) -> @lib.QualityReport raise 
 
 ///|
 fn read(data : Bytes, o : Map[String, Json]) -> @lib.Dataset raise {
+  let legacy_revision_one : Bool = optional(o, "legacy_revision_one", false)
   if o.contains("text_encoding") {
     let encoding : String = required(o, "text_encoding")
     if o.contains("endian") {
-      @lib.decode(data, endian=endian(o), text_encoding=encoding)
+      @lib.decode(
+        data,
+        endian=endian(o),
+        text_encoding=encoding,
+        legacy_revision_one~,
+      )
     } else {
-      @lib.decode(data, text_encoding=encoding)
+      @lib.decode(data, text_encoding=encoding, legacy_revision_one~)
     }
   } else if o.contains("endian") {
-    @lib.decode(data, endian=endian(o))
+    @lib.decode(data, endian=endian(o), legacy_revision_one~)
   } else {
-    @lib.decode(data)
+    @lib.decode(data, legacy_revision_one~)
   }
 }
 
@@ -165,6 +171,8 @@ fn do_report(data : Bytes, options : String) -> String raise {
       }
       {
         "revision": h.revision.to_json(),
+        "raw_revision_word": h.raw_revision_word.to_json(),
+        "assumed_legacy_revision_one": h.assumed_legacy_revision_one.to_json(),
         "endian": (if h.endian == @lib.Big { "big" } else { "little" }).to_json(),
         "sample_code": h.sample_code.to_json(),
         "trace_count": d.trace_count().to_json(),

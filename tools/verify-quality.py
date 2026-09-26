@@ -164,7 +164,7 @@ def expected(metadata, options):
         for value in dict.fromkeys(metadata[i][field] for i in selected):
             members = [(r,v) for r,v in items if r[field]==value]
             groups.append({'value':value,'first_trace':members[0][0]['trace'],'summary':summary(members)})
-    return {'status':'issues' if problems else 'clear', 'source_trace_count':len(metadata),
+    return {'status':'issues' if problems else 'clear', 'format_assumptions':[], 'source_trace_count':len(metadata),
             'weighted':weighted,'dead_threshold':float(dead),'clip_threshold':float(clip),'clipping_checked':clip>0,
             'group_by':options.get('group_by'), 'summary':total,'groups':groups,'details':problems[:budget],
             'max_details':budget,'details_truncated':len(problems)>budget}

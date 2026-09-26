@@ -4,7 +4,7 @@ package "localreview/segy"
 // Values
 pub fn create(FileHeader, Array[Trace], extended_headers? : Array[Bytes]) -> Dataset raise
 
-pub fn decode(Bytes, endian? : Endian, text_encoding? : String) -> Dataset raise
+pub fn decode(Bytes, endian? : Endian, text_encoding? : String, legacy_revision_one? : Bool) -> Dataset raise
 
 pub fn decode_sample(Bytes, Int, Int, Endian) -> Sample raise
 
@@ -18,7 +18,7 @@ pub fn make_header(Int, Double, Int, endian? : Endian, revision? : Int, fixed_le
 
 pub fn make_trace(FileHeader, Array[Sample], interval_us? : Double, fields? : Map[String, Int]) -> Trace raise
 
-pub fn parse_header(Bytes, endian? : Endian, text_encoding? : String) -> FileHeader raise
+pub fn parse_header(Bytes, endian? : Endian, text_encoding? : String, legacy_revision_one? : Bool) -> FileHeader raise
 
 pub fn sample_width(Int) -> Int raise
 
@@ -63,6 +63,8 @@ pub fn Endian::not_equal(Self, Self) -> Bool
 pub struct FileHeader {
   endian : Endian
   revision : Int
+  raw_revision_word : Int
+  assumed_legacy_revision_one : Bool
   sample_code : Int
   samples : Int
   interval_us : Double
@@ -83,6 +85,7 @@ pub fn QualityGroup::to_json(Self) -> Json
 
 pub struct QualityReport {
   status : String
+  format_assumptions : Array[String]
   source_trace_count : Int
   weighted : Bool
   dead_threshold : Double

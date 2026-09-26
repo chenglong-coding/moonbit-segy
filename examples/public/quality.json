@@ -1,0 +1,8 @@
+{
+  "legacy_revision_one": true,
+  "group_by": "trace_in_record",
+  "dead_threshold": 0,
+  "weighted": false,
+  "max_details": 100,
+  "max_groups": 3
+}

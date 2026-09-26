@@ -1,3 +1,2 @@
-* text=auto eol=lf
+*.seg binary
 *.sgy binary
-*.segy binary
