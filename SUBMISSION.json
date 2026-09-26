@@ -18,5 +18,9 @@
   "currentEvidenceScope": "Old IRC topic stopped; explicit legacy header opt-in; public USGS 300-trace prefix with 225k exact samples and 36 zero traces",
   "topicChangeApproved": false,
   "publicRepositoryCreated": false,
-  "localModuleNameNeedsReview": true
+  "localModuleNameNeedsReview": true,
+  "useCase": "按原始道定位读写和检查地震数据，识别零道并对异常旧头显式选择兼容策略",
+  "diff": "不再堆IRC归档功能；segyio/ObsPy已有交换能力，增量为MoonBit可组合道模型与QC",
+  "remainingRisk": "全文下载403，仅核验合法取得的节选；非地质结论或勘探生产采用；换题待办理",
+  "reviewDecision": "停用旧题，替换SEG-Y"
 }
