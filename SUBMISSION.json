@@ -1,0 +1,22 @@
+{
+  "project": "segy",
+  "originalSubmission": "irc",
+  "title": "MoonSEGY：保留原始道定位的地震文件交换与QC",
+  "module": "localreview/segy",
+  "version": "0.2.0",
+  "repository": null,
+  "license": "MIT",
+  "status": "旧选题停用；本地替代完成核验，换题与公开待团队办理",
+  "acceptance": "not established",
+  "localChangesPublished": false,
+  "actualUsersClaimed": false,
+  "remoteCIRunByThisTask": false,
+  "currentValidation": "evidence/public-20260927/LOCAL-CHECKS.json",
+  "currentEvidence": "evidence/public-20260927/LOCAL-CHECKS.json",
+  "proposalLines": 11,
+  "metadataReviewedOn": "2026-09-27",
+  "currentEvidenceScope": "Old IRC topic stopped; explicit legacy header opt-in; public USGS 300-trace prefix with 225k exact samples and 36 zero traces",
+  "topicChangeApproved": false,
+  "publicRepositoryCreated": false,
+  "localModuleNameNeedsReview": true
+}
