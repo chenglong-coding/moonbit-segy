@@ -41,3 +41,7 @@ Python3.12.14、NumPy2.5.3、segyio1.9.14，固定随机种子20260922。332场�
 64道×1000样本，274960字节，记录“扫描+非有限验证+JSON进程通信”耗时；包括宿主开销，不是跨语言性能排名。本项目采用整文件内存模型。
 
 普通 `python tools/verify-reference.py` 不改证据；加 `--evidence evidence/reference.json` 更新。新版源码必须重新绑定SHA，不把旧证据套在新实现上。其他OS的三系统CI只是配置，仍需真实远程运行。最后整批归档绑定Git SHA与源码，不能借此宣称公开发布或正式审查通过。
+
+## 2026-09-27 后续完整测线
+
+`python tools/verify-full-usgs.py /path/to/06c01.seg --output work/full-usgs-reference.json` 对固定62,075,520字节原始文件执行产品QC和完整独立参考。19158道/14368500样本的全局与分组统计、2667零道及segyio逐道读取通过。脚本还检查组集合完整、每组零道计数和明细截断，区别于只检查总体。说明及边界见 [FULL-USGS](FULL-USGS.md)。已有运行核心未改，标准核心测试沿用相同源码的历史回执，本轮新增实际任务与参考证据。

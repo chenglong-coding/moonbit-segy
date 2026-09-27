@@ -1,5 +1,7 @@
 # USGS公开道集节选与有出处的QC任务
 
+本页保留先前300道节选与源站403的验证记录。后续已成功取得并验证一条完整测线，最新结果见 [FULL-USGS](FULL-USGS.md)；不覆盖本页对应的旧回执。
+
 本轮使用 USGS Data Series259 的 `06c01.seg` 前300道，来源是2006年路易斯安那近海数字Chirp调查。官方[数据说明](https://pubs.usgs.gov/ds/259/html/download.html)和[元数据](https://pubs.usgs.gov/ds/259/html/metadata.html)描述4-byte integer、25kHz采样和三个采集通道，并披露间歇零道问题。项目只定位原始振幅为零的道，不能仅据零值判断某一具体故障原因。
 
 ## 来源完整性与许可

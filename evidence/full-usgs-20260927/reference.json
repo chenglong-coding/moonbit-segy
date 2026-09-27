@@ -1,0 +1,90 @@
+{
+  "input": "D:\\CodexLocal\\ban\\work\\closure-20260927\\segy\\usgs-ds259-06c01-full.seg",
+  "command": [
+    "node",
+    "tools/segy.mjs",
+    "qc",
+    "D:\\CodexLocal\\ban\\work\\closure-20260927\\segy\\usgs-ds259-06c01-full.seg",
+    "examples/public/quality.json",
+    "D:\\CodexLocal\\ban\\outputs\\repos\\moonbit-segy\\evidence\\full-usgs-20260927\\reference.qc.json"
+  ],
+  "cliExitCode": 3,
+  "productReportSha256": "b4e2e303b7f138704adbc92a2474fe5bd07be70875d576f2c70f1eefc61a9981",
+  "bridgeSha256": "778923398f445ba6cce9f44383553b9f3564f7ad9cb412f2ffccb4f8c1771d8d",
+  "inputBytes": 62075520,
+  "inputSha256": "50f298aa8d154895c6236d1f851228fe3cc6b590ad163c50835685243da61547",
+  "officialEtagHexSizeComponent": "3b33280",
+  "officialEtagSizeMatchesBytes": true,
+  "segYLayout": {
+    "revisionWordBigEndian": 1,
+    "format": 2,
+    "traceCount": 19158,
+    "samplesPerTrace": 750,
+    "totalSamples": 14368500,
+    "intervalUs": 40,
+    "fixedTraceStrideBytes": 3240,
+    "groups": [
+      {
+        "value": 0,
+        "traces": 6386,
+        "samples": 4789500,
+        "dead_traces": 889,
+        "statistics": {
+          "samples": 4789500,
+          "minimum": 0,
+          "maximum": 1036872256,
+          "mean": 70226113.57108133,
+          "rms": 108903662.273723,
+          "standard_deviation": 83236414.08260395
+        }
+      },
+      {
+        "value": 1,
+        "traces": 6386,
+        "samples": 4789500,
+        "dead_traces": 889,
+        "statistics": {
+          "samples": 4789500,
+          "minimum": -1046576320,
+          "maximum": 1047952640,
+          "mean": -2233.0541887462155,
+          "rms": 108910305.15464853,
+          "standard_deviation": 108910305.1317557
+        }
+      },
+      {
+        "value": 2,
+        "traces": 6386,
+        "samples": 4789500,
+        "dead_traces": 889,
+        "statistics": {
+          "samples": 4789500,
+          "minimum": -1116035328,
+          "maximum": 1117796096,
+          "mean": -83.55430107526881,
+          "rms": 108959168.02957118,
+          "standard_deviation": 108959168.02953915
+        }
+      }
+    ]
+  },
+  "independentReference": {
+    "segyio": "1.9.14",
+    "numpy": "2.5.3",
+    "rawIntegerOracle": "struct + NumPy big-endian signed int32; exact for every sample",
+    "segyioRole": "all traces opened/read; int32 exposed as float32, so not exact-integer oracle",
+    "fullTraceReadsMatchedRawFloat32Projection": 19158
+  },
+  "productOutput": {
+    "path": "D:\\CodexLocal\\ban\\outputs\\repos\\moonbit-segy\\evidence\\full-usgs-20260927\\reference.qc.json",
+    "status": "issues",
+    "traces": 19158,
+    "samples": 14368500,
+    "deadTraces": 2667,
+    "statisticsMatchedIndependentRawDecode": true,
+    "groupStatisticsMatchedIndependentRawDecode": true,
+    "detailsReturned": 100,
+    "detailsTruncated": true
+  },
+  "assertions": "passed"
+}

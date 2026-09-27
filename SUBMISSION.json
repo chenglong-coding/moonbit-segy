@@ -11,16 +11,19 @@
   "localChangesPublished": false,
   "actualUsersClaimed": false,
   "remoteCIRunByThisTask": false,
-  "currentValidation": "evidence/public-20260927/LOCAL-CHECKS.json",
-  "currentEvidence": "evidence/public-20260927/LOCAL-CHECKS.json",
+  "currentValidation": "evidence/full-usgs-20260927/LOCAL-CHECKS.json",
+  "currentEvidence": "evidence/full-usgs-20260927/LOCAL-CHECKS.json",
   "proposalLines": 11,
   "metadataReviewedOn": "2026-09-27",
-  "currentEvidenceScope": "Old IRC topic stopped; explicit legacy header opt-in; public USGS 300-trace prefix with 225k exact samples and 36 zero traces",
+  "currentEvidenceScope": "Complete USGS line 19158 traces / 14368500 samples: QC global/group statistics match raw struct/NumPy; segyio reads every trace; prior 300-trace exact-value evidence retained",
   "topicChangeApproved": false,
   "publicRepositoryCreated": false,
   "localModuleNameNeedsReview": true,
   "useCase": "按原始道定位读写和检查地震数据，识别零道并对异常旧头显式选择兼容策略",
   "diff": "不再堆IRC归档功能；segyio/ObsPy已有交换能力，增量为MoonBit可组合道模型与QC",
-  "remainingRisk": "全文下载403，仅核验合法取得的节选；非地质结论或勘探生产采用；换题待办理",
-  "reviewDecision": "停用旧题，替换SEG-Y"
+  "remainingRisk": "One complete line only; legacy revision word interpretation explicit; raw amplitude not physical/geological interpretation; no confirmed adoption or topic-change approval",
+  "reviewDecision": "停用旧题，替换SEG-Y",
+  "historicalEvidencePointers": {
+    "publicExcerpt": "evidence/public-20260927/LOCAL-CHECKS.json"
+  }
 }

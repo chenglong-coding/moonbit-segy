@@ -1,0 +1,50 @@
+{
+  "utc": "2026-09-27T09:06:21.446979+00:00",
+  "version": "0.2.0",
+  "sources": {
+    "header.mbt": "70d9b82b2b0c929319e5bceca9c16760afd248a32d4f946a1eab1dd729e23bdd",
+    "dataset.mbt": "7c526fee59c198a8fa0e707c88bdfab16c6af7ba4f815bb35dbba002ded6af3d",
+    "transform.mbt": "db73d7e55f2a6b20c262b6435e1a51bd1a13d4ed22da86704651445f399faf59",
+    "quality.mbt": "3ee977c217a41faf51e7f95bd125e9003c34477b89e0c2233c184977eb3a02e7",
+    "legacy_revision_test.mbt": "b0e16e6269d61a74e7359e094ff5c3b5036e9422dc80af47a1aa3be8a6c4b45c",
+    "cmd/bridge/main.mbt": "6e4f72a8d8248cecff14853a035e0e2b236225b55cdb9ccc434603935e157fab",
+    "tools/verify-quality.py": "6e58059189d58583a2074a803fd58b834f3cf4503fb0911a6d7b4be2df0f1fe1",
+    "tools/verify-public-usgs.py": "2572759eee89f746bc47b0f1440e5be8bb5e2239ef45303d63e1739d04873a30",
+    "tools/segy.mjs": "91ff5640a69b562e64ca634e2135ca58e4fd46268406135d7f2b31b30870f388",
+    "examples/run-public-qc.mjs": "51981c1656e52456f0e99c6043fcf2090e58e48bc4a330a64241dd59a1be6b67",
+    "pkg.generated.mbti": "8a6942201779c76ae212d7e8b87b3000669e4813d90fb86264c6b9fd6f1702fd",
+    "moon.mod": "50ab6a1e3e73e7a1b3ea0ef4e13d0f5e639d298b1f8e1828b211124bbb8cf133",
+    "tools/verify-full-usgs.py": "78d6b63c18072a7edb2d24c1fa04bb7d37fe967136d09af277e6f4d5ba1bed4d"
+  },
+  "sourceHashPolicy": "SHA-256 after LF normalization of CRLF; report/bridge hashes are raw bytes",
+  "bridgeSha256": "778923398f445ba6cce9f44383553b9f3564f7ad9cb412f2ffccb4f8c1771d8d",
+  "checks": [
+    {
+      "name": "complete-line-qc-and-independent-reference",
+      "command": [
+        "python",
+        "tools/verify-full-usgs.py",
+        "USGS-06c01.seg",
+        "--output",
+        "evidence/full-usgs-20260927/reference.json"
+      ],
+      "exitCode": 0,
+      "productQcExitCode": 3,
+      "scope": "Exit 3 denotes completed scan with issues, not failure"
+    }
+  ],
+  "inheritedCoreChecks": "evidence/public-20260927/LOCAL-CHECKS.json",
+  "inheritedCoreCheckScope": "All original receipt source hashes and exact release bridge still match; no fresh standard test run claimed",
+  "reference": "reference.json",
+  "referenceSha256": "be4ecbaa06570eeb3e94b5d925bb44c41c4ec6de6058c5ad46a842c9daa3478d",
+  "inputSha256": "50f298aa8d154895c6236d1f851228fe3cc6b590ad163c50835685243da61547",
+  "qcReportSha256": "b4e2e303b7f138704adbc92a2474fe5bd07be70875d576f2c70f1eefc61a9981",
+  "localOnly": true,
+  "remoteCi": false,
+  "published": false,
+  "limits": [
+    "One complete DS259 line, not all eight",
+    "Full sample scan/statistics, not a fresh full-value CSV export comparison",
+    "Legacy revision word requires explicit compatibility interpretation"
+  ]
+}
