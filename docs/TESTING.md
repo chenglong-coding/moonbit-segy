@@ -1,6 +1,10 @@
 # 独立验证记录
 
-## 0.2.0当前验证（2026-09-27）
+已将 .moonbit-version 更新为 0.10.14+7d59c7ec9。格式检查、全目标 check、JS/Wasm-GC 测试（各21项）、release JS 构建、moon info、生成接口差异检查、Node CLI检查（16项）及 JS/Wasm-GC 质量示例均通过。本次仅复核编译器版本，未重跑 NumPy/segyio 参照矩阵和公开USGS检查；外部格式结果仍见下方 2026-09-27 回执。
+
+## 先前验证记录
+
+### Prior 0.2.0 reference verification (2026-09-27)
 
 固定工具链见`.moonbit-version`；全目标检查、格式/API和release构建通过；JS/Wasm-GC各21测试，CLI16项。修改头解析和QC元信息后，独立旧矩阵重跑：332场景/1171检查通过，QC146场景/165检查/15CLI通过。
 
