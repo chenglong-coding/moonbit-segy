@@ -2,7 +2,7 @@
   "project": "segy",
   "originalSubmission": "irc",
   "title": "MoonSEGY：保留原始道定位的地震文件交换与QC",
-  "module": "localreview/segy",
+  "module": "chenglong-coding/segy",
   "version": "0.2.0",
   "repository": null,
   "license": "MIT",

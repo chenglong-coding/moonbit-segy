@@ -4,7 +4,7 @@
 
 MoonBit 原生 SEG-Y 文件交换、道筛选和原始振幅质量检查库。面向反射地震记录与道集数据，不是 miniSEED/SAC 工具、反演程序或地球物理结论生成器。头、样本编解码、索引、变换与分析全部在 MoonBit；Node 只负责文件和 CLI 参数。
 
-`localreview/segy` 是尚未发布的本地模块。MIT；AI 辅助开发并保留真实作者。本地完成不等于远程 CI、注册表发布或正式比赛验收。原范围见 [SCOPE](docs/SCOPE.md)，实测边界见 [TESTING](docs/TESTING.md)。
+`chenglong-coding/segy` 是尚未发布的本地模块。MIT；AI 辅助开发并保留真实作者。本地完成不等于远程 CI、注册表发布或正式比赛验收。原范围见 [SCOPE](docs/SCOPE.md)，实测边界见 [TESTING](docs/TESTING.md)。
 
 ## 本轮公开道集与兼容边界
 
@@ -127,4 +127,4 @@ moon package
 
 本地核验：JS/Wasm-GC 各 21 项测试、release 构建和 CLI 示例通过。 `moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
 
-公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `localreview/segy` 是本地验证命名空间，正式发布前须改成对应账号的名称；换题资格、仓库、公开 CI 和首次发布均待团队办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
+公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `chenglong-coding/segy` 是本地验证命名空间，正式发布前须改成对应账号的名称；换题资格、仓库、公开 CI 和首次发布均待团队办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。

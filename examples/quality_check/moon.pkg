@@ -1,5 +1,5 @@
 import {
-  "localreview/segy",
+  "chenglong-coding/segy",
 }
 
 pkgtype(kind: "executable")

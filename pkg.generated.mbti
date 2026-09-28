@@ -1,5 +1,5 @@
 // Generated using `moon info`, DON'T EDIT IT
-package "localreview/segy"
+package "chenglong-coding/segy"
 
 // Values
 pub fn create(FileHeader, Array[Trace], extended_headers? : Array[Bytes]) -> Dataset raise

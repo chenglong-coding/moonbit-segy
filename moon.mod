@@ -1,4 +1,4 @@
-name = "localreview/segy"
+name = "chenglong-coding/segy"
 
 version = "0.2.0"
 
