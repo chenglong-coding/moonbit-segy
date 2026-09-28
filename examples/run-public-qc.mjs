@@ -17,7 +17,7 @@ const options=JSON.parse(fs.readFileSync(new URL('./public/quality.json',import.
 const qc=JSON.parse(report(data,JSON.stringify({command:'qc',...options})));
 const csv=JSON.parse(report(data,JSON.stringify({command:'qc-csv',...options}))).text;
 if(qc.summary.traces!==300||qc.summary.dead_traces!==36||qc.format_assumptions.length!==1)throw Error('Unexpected public QC result');
-fs.mkdirSync(output);
+fs.mkdirSync(output, { recursive: true });
 fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(qc,null,2)+'\n',{flag:'wx'});
 fs.writeFileSync(path.join(output,'issues.csv'),csv,{flag:'wx'});
 fs.writeFileSync(path.join(output,'manifest.json'),JSON.stringify({source:'https://pubs.usgs.gov/ds/259/segy/06c01.seg',attribution:'U.S. Geological Survey, Data Series 259',sourceByteRangeHalfOpen:[0,size],inputSha256:hash,options,
