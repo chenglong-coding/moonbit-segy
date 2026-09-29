@@ -6,7 +6,7 @@
 
 MoonBit 原生 SEG-Y 文件交换、道筛选和原始振幅质量检查库。面向反射地震记录与道集数据，不是 miniSEED/SAC 工具、反演程序或地球物理结论生成器。头、样本编解码、索引、变换与分析全部在 MoonBit；Node 只负责文件和 CLI 参数。
 
-`chenglong-coding/segy@0.2.1` 已在 Mooncakes 发布。MIT；AI 辅助开发并保留真实作者。本地完成不等于远程 CI、注册表发布或正式比赛验收。原范围见 [SCOPE](docs/SCOPE.md)，实测边界见 [TESTING](docs/TESTING.md)。
+`chenglong-coding/segy@0.2.0` 已在 Mooncakes 发布，本地 0.2.1 尚未发布。MIT；AI 辅助开发并保留真实作者。本地完成不等于远程 CI、注册表发布或正式比赛验收。原范围见 [SCOPE](docs/SCOPE.md)，实测边界见 [TESTING](docs/TESTING.md)。
 
 ## 本轮公开道集与兼容边界
 
