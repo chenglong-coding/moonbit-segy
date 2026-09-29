@@ -1,14 +1,16 @@
 # MoonSEGY
 
+项目仓库：[https://github.com/chenglong-coding/moonbit-segy](https://github.com/chenglong-coding/moonbit-segy)
+
 评审/首次使用请先看[实际任务、替代方案与可运行证据](REVIEW.md)：读入SEG-Y，扫描头与道索引，按道集分组检查振幅/非有限值/分析范围，输出带原始道号与字节位置的问题清单，再由调用方筛选或导出。
 
 MoonBit 原生 SEG-Y 文件交换、道筛选和原始振幅质量检查库。面向反射地震记录与道集数据，不是 miniSEED/SAC 工具、反演程序或地球物理结论生成器。头、样本编解码、索引、变换与分析全部在 MoonBit；Node 只负责文件和 CLI 参数。
 
-`chenglong-coding/segy` 是尚未发布的本地模块。MIT；AI 辅助开发并保留真实作者。本地完成不等于远程 CI、注册表发布或正式比赛验收。原范围见 [SCOPE](docs/SCOPE.md)，实测边界见 [TESTING](docs/TESTING.md)。
+`chenglong-coding/segy@0.2.0` 已在 Mooncakes 发布。MIT；AI 辅助开发并保留真实作者。本地完成不等于远程 CI、注册表发布或正式比赛验收。原范围见 [SCOPE](docs/SCOPE.md)，实测边界见 [TESTING](docs/TESTING.md)。
 
 ## 本轮公开道集与兼容边界
 
-已消费USGS DS259的一条完整测线：19,158道、14,368,500样本，全局/分组统计与独立原始解码一致，识别2,667条零振幅道。完整文件及精确验证范围见 [FULL-USGS](docs/FULL-USGS.md)。原300道节选的225000值逐值核对、36条零道与当时403记录保留在 [PUBLIC-USGS](docs/PUBLIC-USGS.md)，可离线复现。旧版本字仍须显式兼容选项；默认严格拒绝，报告保留假设，原字节不变。此方向作为旧IRC替代候选，尚无正式仓库或获准换题结论。
+已消费USGS DS259的一条完整测线：19,158道、14,368,500样本，全局/分组统计与独立原始解码一致，识别2,667条零振幅道。完整文件及精确验证范围见 [FULL-USGS](docs/FULL-USGS.md)。原300道节选的225000值逐值核对、36条零道与当时403记录保留在 [PUBLIC-USGS](docs/PUBLIC-USGS.md)，可离线复现。旧版本字仍须显式兼容选项；默认严格拒绝，报告保留假设，原字节不变。此方向作为旧IRC替代候选，已有正式公开仓库，获准换题结论仍待核实。
 
 ## 支持能力
 
@@ -127,4 +129,6 @@ moon package
 
 本地核验：JS/Wasm-GC 各 21 项测试、release 构建和 CLI 示例通过。 `moon package` 已完成离线打包预检，它不等于已发布到 Mooncakes。
 
-公开交付（2026-09-28 核对）：尚无本项目正式公开仓库 URL 或 Mooncakes 版本；模块名 `chenglong-coding/segy` 是拟交付账号形式的本地名称，正式发布前须核实账号归属和发布权限；换题资格、仓库、公开 CI 和首次发布均待申报人办理，不能沿用旧题仓库链接。相关远端 CI 与赛事结果仍需以实际记录核对。项目许可见 [LICENSE](LICENSE)；如使用第三方材料，其来源和许可见仓内相应说明。
+**公开状态（2026-09-29 核对）**：GitHub [公开仓库](https://github.com/chenglong-coding/moonbit-segy)、[Mooncakes 0.2.0](https://mooncakes.io/docs/chenglong-coding/segy@0.2.0) 已可访问；[CI 成功记录](https://github.com/chenglong-coding/moonbit-segy/actions/runs/36561890331) 对应 `b4dbe7a4322a`。本次材料更新尚未推送；该远端 CI 对应所列公开提交。报名表一致性及赛事审核结果尚未核实。
+
+同域 MoonBit 现有 [MoonSeis](https://github.com/hzc-666-ai/MoonSeis) 的 miniSEED3 波形/QC 和 [moonbit-seismic](https://github.com/wch6766/moonbit-seismic) 的 SAC/miniSEED 信号处理。统计与检查概念存在交集；本项目独立范围是 SEG-Y 道模型、原始位置及交换约束，不把整个地震处理生态称为空白。
