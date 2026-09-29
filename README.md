@@ -23,7 +23,7 @@ MoonBit 原生 SEG-Y 文件交换、道筛选和原始振幅质量检查库。�
 
 ## 快速运行
 
-需要 MoonBit 与 Node.js 24。当前固定工具链见`.moonbit-version`；0.2.0检查见docs/TESTING.md，旧0.1.0日志不当作当前版本结论。核心运行不需要 Python/segyio。
+需要 MoonBit 与 Node.js 24。当前固定工具链见`.moonbit-version`；本地交付 0.2.1 仅补全仓库地址元数据，沿用 0.2.0 实现的检查，见 docs/TESTING.md；旧 0.1.0 日志按原范围保留。核心运行不需要 Python/segyio。
 
 ```sh
 moon check --target all
