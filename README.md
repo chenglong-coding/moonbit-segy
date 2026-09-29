@@ -1,6 +1,6 @@
 # MoonSEGY
 
-项目仓库：[https://github.com/chenglong-coding/moonbit-segy](https://github.com/chenglong-coding/moonbit-segy)
+项目仓库：[https://github.com/chenglong-coding/moonbit-segy](https://github.com/chenglong-coding/moonbit-segy) 本地交付版 0.2.1 仅补全已存在公开仓库的包元数据地址，算法未改；尚未推送或发布，公开版仍为 0.2.0。
 
 评审/首次使用请先看[实际任务、替代方案与可运行证据](REVIEW.md)：读入SEG-Y，扫描头与道索引，按道集分组检查振幅/非有限值/分析范围，输出带原始道号与字节位置的问题清单，再由调用方筛选或导出。
 

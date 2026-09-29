@@ -1,6 +1,6 @@
 # MoonSEGY：保留原始道位置的 SEG-Y 交换与质量检查
 
-本地模块 `chenglong-coding/segy@0.2.0`，MIT；拟替换因应用范围过窄而停用的 IRC 选题。公开仓库：https://github.com/chenglong-coding/moonbit-segy。
+本地模块 `chenglong-coding/segy@0.2.0`，MIT；拟替换因应用范围过窄而停用的 IRC 选题。公开仓库：https://github.com/chenglong-coding/moonbit-segy。 本地交付版 0.2.1 仅补全已存在公开仓库的包元数据地址，算法未改；尚未推送或发布，公开版仍为 0.2.0。
 
 ## 任务与 MoonBit 交付
 
