@@ -1,6 +1,6 @@
 # MoonSEGY：保留原始道位置的 SEG-Y 交换与质量检查
 
-本地模块 `chenglong-coding/segy@0.2.0`，MIT；拟替换因应用范围过窄而停用的 IRC 选题。正式项目仓库尚未公开，账号归属、换题资格和报名表链接仍待核实；旧 IRC URL 不能代填。
+本地模块 `chenglong-coding/segy@0.2.0`，MIT；拟替换因应用范围过窄而停用的 IRC 选题。公开仓库：https://github.com/chenglong-coding/moonbit-segy。
 
 ## 任务与 MoonBit 交付
 
@@ -16,4 +16,4 @@ segyio 等已有成熟 C/Python 实现；项目不声称文件格式、统计算
 
 不推断故障原因、物理标定振幅、CRS或地质结论；不宣称全部调查或任意厂商rev2.1布局可用。没有生产性能或客户采用证明。交付包含离线公开节选、可运行任务、公共API、独立参考和当前源码日志，正式发布、匿名克隆及报名表一致性是外部待办。
 
-**验收复现与交付状态（2026-09-28 本地）**：以 moonc 0.10.14+7d59c7ec9 通过 `--deny-warn` 检查、JS/Wasm-GC 测试和构建、最小样例和离线 `moon package`；同一代码在 Ubuntu-D 26.04 WSL2 全新解包后通过格式、接口生成、严格双后端检查及 Node 24.21.0 最小宿主入口；正式仓库、换题资格、远端 CI 和 Mooncakes 首发待办理。命令与能力边界见 [README](README.md)，自动检查见 [CI](.github/workflows/ci.yml)；本地通过不代表赛事审核通过。
+**验收复现与交付状态（2026-09-28 本地）**：以 moonc 0.10.14+7d59c7ec9 通过 `--deny-warn` 检查、JS/Wasm-GC 测试和构建、最小样例和离线 `moon package`；同一代码在 Ubuntu-D 26.04 WSL2 全新解包后通过格式、接口生成、严格双后端检查及 Node 24.21.0 最小宿主入口；公开仓库已上线、远端 CI（ubuntu-latest）通过、Mooncakes 已发布 0.2.0；换题资格与表单更新按赛事流程办理。命令与能力边界见 [README](README.md)，自动检查见 [CI](.github/workflows/ci.yml)；本地通过不代表赛事审核通过。
